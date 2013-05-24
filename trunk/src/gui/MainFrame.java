@@ -1,5 +1,3 @@
-package gui;
-
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,16 +11,17 @@ public class MainFrame extends JFrame {
 	private Items items;
 	private Spells spells;
 	private Operations operations;
+	private static Database db;
 	
-	public MainFrame() {
+	public MainFrame() throws Exception {
 		super();
 		
 		setTitle("RPG Database");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		tabPane = new JTabbedPane();
 		getContentPane().add(tabPane);
 		
-		tabPane = new JTabbedPane();
-		character = new Character();
+		character = new Character(this);
 		items = new Items();
 		spells = new Spells();
 		operations = new Operations();
@@ -33,9 +32,16 @@ public class MainFrame extends JFrame {
 		tabPane.addTab("Operations", operations);
 	}
 	
-	public static void Main(final String args[]) {
-		MainFrame rpgDatabase = new MainFrame();
-		rpgDatabase.pack();
-		rpgDatabase.setVisible(true);
+	public static void main(final String args[]) throws Exception {
+		db = new Database();
+		MainFrame frame = new MainFrame();
+		frame.setBounds(100, 100, 855, 541);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//frame.pack();
+		frame.setVisible(true);
+	}
+	
+	public Database getDb() {
+		return db;
 	}
 }
