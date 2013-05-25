@@ -1,47 +1,51 @@
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.sql.SQLException;
+
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame {
 	
-	private JTabbedPane tabPane;
-	private Character character;
-	private Items items;
-	private Spells spells;
-	private Operations operations;
-	private static Database db;
-	
 	public MainFrame() throws Exception {
-		super();
-		
 		setTitle("RPG Database");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		tabPane = new JTabbedPane();
+		setBounds(100, 100, 900, 600);
+		addWindowListener(new DisconnectAndClose());
+		
+		JTabbedPane tabPane = new JTabbedPane();
 		getContentPane().add(tabPane);
-		
-		character = new Character(this);
-		items = new Items();
-		spells = new Spells();
-		operations = new Operations();
-		
-		tabPane.addTab("Character", character);
-		tabPane.addTab("Items", items);
-		tabPane.addTab("Spells", spells);
-		tabPane.addTab("Operations", operations);
+		tabPane.addTab("Character", new Character());
+		tabPane.addTab("Items", new Items());
+		tabPane.addTab("Spells", new Spells());
+		tabPane.addTab("Operations", new Operations());
 	}
 	
 	public static void main(final String args[]) throws Exception {
-		db = new Database();
 		MainFrame frame = new MainFrame();
-		frame.setBounds(100, 100, 855, 541);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//frame.pack();
 		frame.setVisible(true);
+		Database.connect();
 	}
 	
-	public Database getDb() {
-		return db;
+	class DisconnectAndClose extends WindowAdapter {
+		public void windowClosing(WindowEvent e)
+		  {
+			try {
+				Database.disconnect();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		    System.exit(0);
+		  }
 	}
+	
 }
