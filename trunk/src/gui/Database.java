@@ -1,41 +1,24 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;;
 
 public class Database {
-	private static Database _db = null;
+	private static Connection conn;
+	private static Statement statement;
+	private static ResultSet rs;
+	private static String result;
 	
-	public static Database getDb() {
-		if (_db == null) {
-			_db = new Database();
-		}
-		return _db;
-	}
 	
-	public static String executeQuery(String query) throws Exception {
-		Connection conn = null;
-		Statement statement = null;
-		ResultSet rs = null;
-		String ret = "";
+	public static void connect() throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.jdbc.Driver");
 		conn = DriverManager.getConnection("jdbc:mysql://localhost/rpg?user=root&password=");
 		statement = conn.createStatement();
-		rs = statement.executeQuery(query);
-		ResultSetMetaData meta = rs.getMetaData();
-		int colCnt = meta.getColumnCount();
-		for (int i = 1; i <= colCnt; i++) {
-			ret += meta.getColumnName(i) + "\t\t";
-		}
-		ret += "\r\n";
-		while (rs.next()) {
-			for (int i = 1; i <= meta.getColumnCount(); i++) {
-				ret += rs.getString(i) + "\t\t";
-			}	
-			ret += "\r\n";
-		}
-
+	}
+	
+	public static void disconnect() throws SQLException {
 		if (rs != null) {
 			rs.close();
 		}
@@ -44,15 +27,26 @@ public class Database {
 		}
 		if (conn != null) {
 			conn.close();
-		}
-		return ret;
+		}	
 	}
 	
-	/*
-	 	//test
-	 	public static void main(String[] args) throws Exception {
-		executeQuery("SELECT itemID, itemName FROM Item where itemLevel = 1");
-	}*/
-
+	public static String executeQuery(String query) throws Exception {
+		result = "";
+		rs = statement.executeQuery(query);
+		ResultSetMetaData meta = rs.getMetaData();
+		int colCnt = meta.getColumnCount();
+		for (int i = 1; i <= colCnt; i++) {
+			result += meta.getColumnName(i) + "\t\t";
+		}
+		result += "\r\n";
+		while (rs.next()) {
+			for (int i = 1; i <= meta.getColumnCount(); i++) {
+				result += rs.getString(i) + "\t\t";
+			}	
+			result += "\r\n";
+		}
+		return result;
+	}
+	
 }
 
