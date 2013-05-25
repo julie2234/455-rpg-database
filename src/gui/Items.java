@@ -1,3 +1,5 @@
+package gui;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -10,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+@SuppressWarnings("serial")
 public class Items extends JPanel {
 	private String[] attributes = {"itemID", "itemName", "itemType", "itemLevel", "cost", "weight", "perk", "defense", "upgrade", "damage", "duration", "potency"};
 	
