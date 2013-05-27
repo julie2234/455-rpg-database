@@ -14,6 +14,7 @@ public class MainFrame extends JFrame {
 		setTitle("RPG Database");
 //		setBounds(100, 100, 900, 600);
 		addWindowListener(new DisconnectAndClose());
+		setResizable(false);
 		
 		JTabbedPane tabPane = new JTabbedPane();
 		getContentPane().add(tabPane);

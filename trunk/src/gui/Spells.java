@@ -23,7 +23,7 @@ public class Spells extends JPanel {
 		initialize();
 	}
 	
-	public void initialize() throws Exception {
+	private void initialize() throws Exception {
 		setLayout(new GridBagLayout());
 		
 		GridBagConstraints searchByConst = new GridBagConstraints();
@@ -92,8 +92,8 @@ public class Spells extends JPanel {
 		checkBoxConst.gridheight = 3;
 		checkBoxConst.ipady = 20;
 		JPanel checkBoxPanel = new JPanel();
-		String[] checkNames = {"spellName", "magicType", "magikaCost", "spellPotency",
-				   "duration", "prerequisite"};
+		String[] checkNames = {"spellName", "magicType", "magikaCost",
+							   "spellPotency", "duration", "prerequisite"};
 		final JCheckBox[] checkboxes = new JCheckBox[checkNames.length];
 		checkBoxPanel.setLayout(new BoxLayout(checkBoxPanel, BoxLayout.Y_AXIS));
 		for (int i = 0; i < checkNames.length; i++) {
@@ -115,7 +115,7 @@ public class Spells extends JPanel {
         		}
         		if (query.substring(query.length() - 2, query.length()).equals(", ")) {
         			query.delete(query.length() - 2, query.length());
-            		query.append(" FROM `Character` where " + searchBy + " = \"" + condition + "\";");
+            		query.append(" FROM Spells where " + searchBy + " = \"" + condition + "\";");
     				try {
     					result = Database.executeQuery(query.toString());
     				} catch (Exception e) {
