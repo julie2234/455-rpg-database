@@ -28,12 +28,13 @@ public class Items extends JPanel {
 		setLayout(new GridBagLayout());
 		
 		GridBagConstraints searchByConst = new GridBagConstraints();
+		searchByConst.insets = new Insets(20, 0, 0, 0);
 		searchByConst.gridx = 0;
 		searchByConst.gridy = 0;
 		add(new JLabel("Search by:"), searchByConst);
 		
 		GridBagConstraints dropdownConst = new GridBagConstraints();
-		dropdownConst.insets = new Insets(0,5,0,0);
+		dropdownConst.insets = new Insets(20, 5, 0, 0);
 		dropdownConst.ipadx = 31;
 		dropdownConst.gridwidth = 2;
 		dropdownConst.gridx = 1;
@@ -44,7 +45,7 @@ public class Items extends JPanel {
 		
 		GridBagConstraints searchFieldConst = new GridBagConstraints();
 		searchFieldConst.anchor = GridBagConstraints.LINE_START;
-		searchFieldConst.insets = new Insets(0,15,0,0);
+		searchFieldConst.insets = new Insets(20, 15, 0, 0);
 		searchFieldConst.ipadx = 40;
 		searchFieldConst.gridx = 3;
 		searchFieldConst.gridy = 0;
@@ -54,7 +55,7 @@ public class Items extends JPanel {
 		
 		GridBagConstraints searchButtonConst = new GridBagConstraints();
 		searchButtonConst.anchor = GridBagConstraints.LINE_START;
-		searchButtonConst.insets = new Insets(0,10,0,0);
+		searchButtonConst.insets = new Insets(20, 10, 0, 0);
 		searchButtonConst.weightx = 1.0;
 		searchButtonConst.gridx = 6;
 		searchButtonConst.gridy = 0;
