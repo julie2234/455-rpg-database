@@ -1,29 +1,25 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 @SuppressWarnings("serial")
 public class Operations extends JPanel {
-	JPanel castability;
-	JPanel itemLevel;
-	JPanel generateMonster;
-	JPanel createCharacter;
 	
 	public Operations() throws Exception {
-		castability = new JPanel();
-		itemLevel = new JPanel();
-		generateMonster = new JPanel();
-		createCharacter = new JPanel();
-		
+		super();
 		initialize();
 	}
 	
 	private void initialize() throws Exception {
 		setLayout(new BorderLayout());
+		
+		Castability castability = new Castability();
+		ItemLevel itemLevel = new ItemLevel();
+		GenerateMonster generateMonster = new GenerateMonster();
+		CreateCharacter createCharacter = new CreateCharacter();
 		
 		JTabbedPane tabPane = new JTabbedPane();
 		add(tabPane, BorderLayout.CENTER);
@@ -31,16 +27,6 @@ public class Operations extends JPanel {
 		tabPane.addTab("Item Level", itemLevel);
 		tabPane.addTab("Generate Monster", generateMonster);
 		tabPane.addTab("Create Character", createCharacter);
-
-		castability.setLayout(new GridBagLayout());
-		itemLevel.setLayout(new GridBagLayout());
-		generateMonster.setLayout(new GridBagLayout());
-		createCharacter.setLayout(new GridBagLayout());
-		
-		initializeCastability();
-		initializeItemLevel();
-		initializeGenerateMonster();
-		initializeCreateCharacter();
 		
 /*
 		// action listener for search button
@@ -72,22 +58,6 @@ public class Operations extends JPanel {
             }
         });
 */
-	}
-	
-	private void initializeCastability() {
-		castability.setLayout(new GridBagLayout());
-	}
-	
-	private void initializeItemLevel() {
-		itemLevel.setLayout(new GridBagLayout());
-	}
-	
-	private void initializeGenerateMonster() {
-		generateMonster.setLayout(new GridBagLayout());
-	}
-	
-	private void initializeCreateCharacter() {
-		createCharacter.setLayout(new GridBagLayout());
 	}
 }
 

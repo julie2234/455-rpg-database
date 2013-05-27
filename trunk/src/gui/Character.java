@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 public class Character extends JPanel {
 
 	public Character() throws Exception {
+		super();
 		initialize();
 	}
 	

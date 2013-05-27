@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 public class Spells extends JPanel {
 
 	public Spells() throws Exception {
+		super();
 		initialize();
 	}
 	
