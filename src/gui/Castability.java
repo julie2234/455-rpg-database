@@ -38,20 +38,28 @@ public class Castability extends JPanel {
 		add(charField, charFieldConst);
 		
 		GridBagConstraints searchSpellConst = new GridBagConstraints();
-		searchSpellConst.anchor = GridBagConstraints.LINE_END;
-		searchSpellConst.insets = new Insets(20, 30, 0, 0);
+		searchSpellConst.anchor = GridBagConstraints.LINE_START;
+		searchSpellConst.insets = new Insets(20, 10, 0, 0);
 		searchSpellConst.gridx = 3;
 		searchSpellConst.gridy = 0;
-		JLabel searchSpell = new JLabel("Cast");
+		JLabel searchSpell = new JLabel("cast");
 		add(searchSpell, searchSpellConst);
 		
 		GridBagConstraints spellFieldConst = new GridBagConstraints();
-//		spellFieldConst.anchor = GridBagConstraints.LINE_END;
-		spellFieldConst.insets = new Insets(20, 10, 0, 80);
+//		spellFieldConst.anchor = GridBagConstraints.LINE_START;
+		spellFieldConst.insets = new Insets(20, 10, 0, 0);
 		spellFieldConst.gridx = 4;
 		spellFieldConst.gridy = 0;
 		JTextField spellField = new JTextField(10);
 		add(spellField, spellFieldConst);
+		
+		GridBagConstraints questionConst = new GridBagConstraints();
+		questionConst.anchor = GridBagConstraints.LINE_START;
+		questionConst.insets = new Insets(20, 0, 0, 0);
+		questionConst.gridx = 5;
+		questionConst.gridy = 0;
+		JLabel question = new JLabel("?");
+		add(question, questionConst);
 		
 		GridBagConstraints charConst = new GridBagConstraints();
 //		charConst.insets = new Insets(0, 80, 0, 0);
@@ -61,16 +69,16 @@ public class Castability extends JPanel {
 		add(character, charConst);
 		
 		GridBagConstraints spellConst = new GridBagConstraints();
-		spellConst.insets = new Insets(0, 0, 0, 80);
+//		spellConst.insets = new Insets(0, 0, 0, 80);
 		spellConst.gridx = 4;
 		spellConst.gridy = 1;
 		JLabel spell = new JLabel("(Spell)");
 		add(spell, spellConst);
 		
 		GridBagConstraints checkButtonConst = new GridBagConstraints();
-		checkButtonConst.insets = new Insets(0, 20, 0, 40);
-		checkButtonConst.gridx = 3;
-		checkButtonConst.gridy = 2;
+		checkButtonConst.insets = new Insets(20, 20, 0, 80);
+		checkButtonConst.gridx = 6;
+		checkButtonConst.gridy = 0;
 		JButton checkButton = new JButton("Check");
 		add(checkButton, checkButtonConst);
 		
