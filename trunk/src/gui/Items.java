@@ -154,8 +154,10 @@ public class Items extends JPanel implements ActionListener {
 				String condition = textField.getText();
 
 				searchButton.doClick();
-				int confirm = JOptionPane.showConfirmDialog(null, "msg",
-						"Title", JOptionPane.YES_NO_OPTION);
+				String msg = "Are you sure you wish to delete all of the searched results?";
+				String title = "Confirm Delete";
+				int confirm = JOptionPane.showConfirmDialog(null, msg,
+						title, JOptionPane.YES_NO_OPTION);
 
 				if (confirm == JOptionPane.YES_OPTION) {
 					StringBuilder query = new StringBuilder(
