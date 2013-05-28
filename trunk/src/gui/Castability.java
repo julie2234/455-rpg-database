@@ -3,6 +3,8 @@ package gui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -12,7 +14,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
-public class Castability extends JPanel {
+public class Castability extends JPanel implements ActionListener {
 
 	public Castability() {
 		super();
@@ -80,6 +82,7 @@ public class Castability extends JPanel {
 		checkButtonConst.gridx = 6;
 		checkButtonConst.gridy = 0;
 		JButton checkButton = new JButton("Check");
+		checkButton.addActionListener(this);
 		add(checkButton, checkButtonConst);
 		
 		GridBagConstraints resultsConst = new GridBagConstraints();
@@ -101,5 +104,12 @@ public class Castability extends JPanel {
 		JScrollPane scrollArea = new JScrollPane(resultsTextArea);
 		add(scrollArea, resultsTextAreaConst);
 		resultsTextArea.setEditable(false);
+	}
+
+	@Override
+	public void actionPerformed(final ActionEvent the_arguments) {
+		if (the_arguments.getActionCommand().equals("Check")) {
+			// TODO Check if spellField is a part of charField
+		}
 	}
 }

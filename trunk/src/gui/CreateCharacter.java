@@ -3,6 +3,8 @@ package gui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -13,7 +15,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
-public class CreateCharacter extends JPanel {
+public class CreateCharacter extends JPanel implements ActionListener {
 
 	public CreateCharacter() {
 		super();
@@ -53,16 +55,17 @@ public class CreateCharacter extends JPanel {
 		dropdownConst.gridx = 5;
 		dropdownConst.gridy = 0;
 		String[] dropdown = {"High elf", "Argonian", "Wood elf", "Breton", "Dunmer", "Imperial", "Khajiit", "Nord", "Orc", "Redguard"};
-		final JComboBox searchByDropdown = new JComboBox(dropdown);
-		add(searchByDropdown, dropdownConst);
+		final JComboBox raceByDropdown = new JComboBox(dropdown);
+		add(raceByDropdown, dropdownConst);
 		
-		GridBagConstraints searchButtonConst = new GridBagConstraints();
-		searchButtonConst.anchor = GridBagConstraints.LINE_START;
-		searchButtonConst.insets = new Insets(20, 0, 0, 0);
-		searchButtonConst.gridx = 3;
-		searchButtonConst.gridy = 1;
-		JButton searchButton = new JButton("Create");
-		add(searchButton, searchButtonConst);
+		GridBagConstraints createButtonConst = new GridBagConstraints();
+		createButtonConst.anchor = GridBagConstraints.LINE_START;
+		createButtonConst.insets = new Insets(20, 0, 0, 0);
+		createButtonConst.gridx = 3;
+		createButtonConst.gridy = 1;
+		JButton createButton = new JButton("Create");
+		createButton.addActionListener(this);
+		add(createButton, createButtonConst);
 		
 		GridBagConstraints resultsConst = new GridBagConstraints();
 		resultsConst.anchor = GridBagConstraints.LAST_LINE_START;
@@ -83,5 +86,12 @@ public class CreateCharacter extends JPanel {
 		JScrollPane scrollArea = new JScrollPane(resultsTextArea);
 		add(scrollArea, resultsTextAreaConst);
 		resultsTextArea.setEditable(false);
+	}
+
+	@Override
+	public void actionPerformed(final ActionEvent the_arguments) {
+		if (the_arguments.getActionCommand().equals("Create")) {
+			// TODO Add a tuple to Character with characterName of charField and race of raceByDropdown
+		}
 	}
 }

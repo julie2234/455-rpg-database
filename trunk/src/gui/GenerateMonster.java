@@ -3,6 +3,8 @@ package gui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -12,7 +14,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
-public class GenerateMonster extends JPanel {
+public class GenerateMonster extends JPanel implements ActionListener {
 
 	public GenerateMonster() {
 		super();
@@ -44,6 +46,7 @@ public class GenerateMonster extends JPanel {
 		genButtonConst.gridx = 5;
 		genButtonConst.gridy = 0;
 		JButton genButton = new JButton("Generate");
+		genButton.addActionListener(this);
 		add(genButton, genButtonConst);
 		
 		GridBagConstraints resultsConst = new GridBagConstraints();
@@ -65,5 +68,12 @@ public class GenerateMonster extends JPanel {
 		JScrollPane scrollArea = new JScrollPane(resultsTextArea);
 		add(scrollArea, resultsTextAreaConst);
 		resultsTextArea.setEditable(false);
+	}
+
+	@Override
+	public void actionPerformed(final ActionEvent the_arguments) {
+		if (the_arguments.getActionCommand().equals("Generate")) {
+			// TODO Pick a random monster that has a level of monsterField
+		}
 	}
 }

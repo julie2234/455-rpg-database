@@ -3,6 +3,8 @@ package gui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -12,7 +14,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
-public class ItemLevel extends JPanel {
+public class ItemLevel extends JPanel implements ActionListener {
 
 	public ItemLevel() {
 		super();
@@ -22,37 +24,37 @@ public class ItemLevel extends JPanel {
 	private void initialize() {
 		setLayout(new GridBagLayout());
 		
-		GridBagConstraints searchCharConst = new GridBagConstraints();
-		searchCharConst.anchor = GridBagConstraints.LINE_START;
-		searchCharConst.insets = new Insets(20, 10, 0, 0);
-		searchCharConst.gridx = 1;
-		searchCharConst.gridy = 0;
-		JLabel searchChar = new JLabel("Search for item from level");
-		add(searchChar, searchCharConst);
+		GridBagConstraints fromLevelConst = new GridBagConstraints();
+		fromLevelConst.anchor = GridBagConstraints.LINE_START;
+		fromLevelConst.insets = new Insets(20, 10, 0, 0);
+		fromLevelConst.gridx = 1;
+		fromLevelConst.gridy = 0;
+		JLabel fromLevel = new JLabel("Search for item from level");
+		add(fromLevel, fromLevelConst);
 		
-		GridBagConstraints charFieldConst = new GridBagConstraints();
-		charFieldConst.anchor = GridBagConstraints.LINE_START;
-		charFieldConst.insets = new Insets(20, 10, 0, 0);
-		charFieldConst.gridx = 2;
-		charFieldConst.gridy = 0;
-		JTextField charField = new JTextField(3);
-		add(charField, charFieldConst);
+		GridBagConstraints fromLevelFieldConst = new GridBagConstraints();
+		fromLevelFieldConst.anchor = GridBagConstraints.LINE_START;
+		fromLevelFieldConst.insets = new Insets(20, 10, 0, 0);
+		fromLevelFieldConst.gridx = 2;
+		fromLevelFieldConst.gridy = 0;
+		JTextField fromLevelField = new JTextField(3);
+		add(fromLevelField, fromLevelFieldConst);
 		
-		GridBagConstraints searchSpellConst = new GridBagConstraints();
-		searchSpellConst.anchor = GridBagConstraints.LINE_START;
-		searchSpellConst.insets = new Insets(20, 10, 0, 0);
-		searchSpellConst.gridx = 3;
-		searchSpellConst.gridy = 0;
-		JLabel searchSpell = new JLabel("to level");
-		add(searchSpell, searchSpellConst);
+		GridBagConstraints toLevelConst = new GridBagConstraints();
+		toLevelConst.anchor = GridBagConstraints.LINE_START;
+		toLevelConst.insets = new Insets(20, 10, 0, 0);
+		toLevelConst.gridx = 3;
+		toLevelConst.gridy = 0;
+		JLabel toLevel = new JLabel("to level");
+		add(toLevel, toLevelConst);
 		
-		GridBagConstraints spellFieldConst = new GridBagConstraints();
-		spellFieldConst.anchor = GridBagConstraints.LINE_START;
-		spellFieldConst.insets = new Insets(20, 10, 0, 10);
-		spellFieldConst.gridx = 4;
-		spellFieldConst.gridy = 0;
-		JTextField spellField = new JTextField(3);
-		add(spellField, spellFieldConst);
+		GridBagConstraints toLevelFieldConst = new GridBagConstraints();
+		toLevelFieldConst.anchor = GridBagConstraints.LINE_START;
+		toLevelFieldConst.insets = new Insets(20, 10, 0, 10);
+		toLevelFieldConst.gridx = 4;
+		toLevelFieldConst.gridy = 0;
+		JTextField toLevelField = new JTextField(3);
+		add(toLevelField, toLevelFieldConst);
 		
 		GridBagConstraints searchButtonConst = new GridBagConstraints();
 		searchButtonConst.anchor = GridBagConstraints.LINE_START;
@@ -60,6 +62,7 @@ public class ItemLevel extends JPanel {
 		searchButtonConst.gridx = 5;
 		searchButtonConst.gridy = 0;
 		JButton searchButton = new JButton("Search");
+		searchButton.addActionListener(this);
 		add(searchButton, searchButtonConst);
 		
 		GridBagConstraints resultsConst = new GridBagConstraints();
@@ -81,5 +84,12 @@ public class ItemLevel extends JPanel {
 		JScrollPane scrollArea = new JScrollPane(resultsTextArea);
 		add(scrollArea, resultsTextAreaConst);
 		resultsTextArea.setEditable(false);
+	}
+
+	@Override
+	public void actionPerformed(final ActionEvent the_arguments) {
+		if (the_arguments.getActionCommand().equals("Search")) {
+			// TODO Search for items that have a level within fromLevelField to toLevelField
+		}
 	}
 }
