@@ -17,7 +17,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
-public class Character extends JPanel {
+public class Character extends JPanel implements ActionListener {
 
 	public Character() throws Exception {
 		super();
@@ -38,7 +38,9 @@ public class Character extends JPanel {
 		dropdownConst.gridwidth = 2;
 		dropdownConst.gridx = 1;
 		dropdownConst.gridy = 0;
-		String[] dropdown = {"characterID", "characterName", "race", "level"};
+		String[] dropdown = {"characterID", "characterName", "playerBoolean",
+							 "race", "characterLevel", "experience", "hitPoints",
+							 "magikaPoints", "stamina", "equippedItems"};
 		final JComboBox searchByDropdown = new JComboBox(dropdown);
 		add(searchByDropdown, dropdownConst);
 		
@@ -59,19 +61,30 @@ public class Character extends JPanel {
 		searchButtonConst.gridx = 6;
 		searchButtonConst.gridy = 0;
 		JButton searchButton = new JButton("Search");
+		searchButton.addActionListener(this);
 		add(searchButton, searchButtonConst);
+		
+		GridBagConstraints deleteButtonConst = new GridBagConstraints();
+//		deleteButtonConst.anchor = GridBagConstraints.LINE_START;
+		deleteButtonConst.insets = new Insets(40, 0, 0, 0);
+//		deleteButtonConst.weightx = 1.0;
+		deleteButtonConst.gridx = 3;
+		deleteButtonConst.gridy = 1;
+		JButton deleteButton = new JButton("Delete All");
+		deleteButton.addActionListener(this);
+		add(deleteButton, deleteButtonConst);
 
 		GridBagConstraints resultsConst = new GridBagConstraints();
 		resultsConst.anchor = GridBagConstraints.LAST_LINE_START;
 		resultsConst.gridx = 0;
-		resultsConst.gridy = 1;
+		resultsConst.gridy = 2;
 		resultsConst.weighty = 1.0;
 		add(new JLabel("Results:"), resultsConst);
 		
 		GridBagConstraints textAreaConst = new GridBagConstraints();
 		textAreaConst.anchor = GridBagConstraints.LAST_LINE_START;
 		textAreaConst.gridx = 0;
-		textAreaConst.gridy = 2;
+		textAreaConst.gridy = 3;
 		textAreaConst.gridwidth = 7;
 		final JTextArea resultTextArea = new JTextArea(12, 40);
 		JScrollPane scrollArea = new JScrollPane(resultTextArea);
@@ -92,9 +105,9 @@ public class Character extends JPanel {
 		checkBoxConst.gridheight = 3;
 		checkBoxConst.ipady = 20;
 		JPanel checkBoxPanel = new JPanel();
-		String[] checkNames = {"characterID", "characterName", "playerBoolean", "race",
-				   "characterLevel", "experience", "hitPoints", "magikaPoints",
-				   "stamina", "weightCapacity", "equippedItems"};
+		String[] checkNames = {"characterID", "characterName", "playerBoolean",
+							   "race", "characterLevel", "experience", "hitPoints",
+							   "magikaPoints", "stamina", "equippedItems"};
 		final JCheckBox[] checkboxes = new JCheckBox[checkNames.length];
 		checkBoxPanel.setLayout(new BoxLayout(checkBoxPanel, BoxLayout.Y_AXIS));
 		for (int i = 0; i < checkNames.length; i++) {
@@ -104,7 +117,7 @@ public class Character extends JPanel {
 		add(checkBoxPanel, checkBoxConst);
 		
 		// action listener for search button
-		searchButton.addActionListener(new ActionListener() {
+/*		searchButton.addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent the_event) {
             	String searchBy = (String) searchByDropdown.getSelectedItem();
         		String condition = textField.getText();
@@ -120,7 +133,6 @@ public class Character extends JPanel {
     				try {
     					result = Database.executeQuery(query.toString());
     				} catch (Exception e) {
-    					// TODO Auto-generated catch block
     					e.printStackTrace();
     				}
             		resultTextArea.setText(result);
@@ -130,6 +142,17 @@ public class Character extends JPanel {
         		}
 
             }
-        });
+        });*/
+	}
+
+	@Override
+	public void actionPerformed(final ActionEvent the_arguments) {
+		if (the_arguments.getActionCommand().equals("Search")) {
+			// TODO Add database search based on searchByDropdown and checkboxes
+			
+		} else if (the_arguments.getActionCommand().equals("Delete All")) {
+			// TODO Delete all of the results of the last search
+			
+		}
 	}
 }
