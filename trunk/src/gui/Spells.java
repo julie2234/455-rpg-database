@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -60,8 +61,8 @@ public class Spells extends JPanel implements ActionListener {
 		searchButtonConst.weightx = 1.0;
 		searchButtonConst.gridx = 6;
 		searchButtonConst.gridy = 0;
-		JButton searchButton = new JButton("Search");
-		searchButton.addActionListener(this);
+		final JButton searchButton = new JButton("Search");
+		//searchButton.addActionListener(this);
 		add(searchButton, searchButtonConst);
 		
 		GridBagConstraints deleteButtonConst = new GridBagConstraints();
@@ -117,7 +118,7 @@ public class Spells extends JPanel implements ActionListener {
 		add(checkBoxPanel, checkBoxConst);
 		
 		// action listener for search button
-/*		searchButton.addActionListener(new ActionListener() {
+		searchButton.addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent the_event) {
             	String searchBy = (String) searchByDropdown.getSelectedItem();
         		String condition = textField.getText();
@@ -141,7 +142,32 @@ public class Spells extends JPanel implements ActionListener {
             		resultTextArea.setText("Please select at least one checkbox.");
         		}
             }
-        });*/
+        });
+		
+		// action listener for delete button
+		deleteButton.addActionListener(new ActionListener() {
+			public void actionPerformed(final ActionEvent the_event) {
+				String searchBy = (String) searchByDropdown.getSelectedItem();
+				String condition = textField.getText();
+
+				searchButton.doClick();
+				int confirm = JOptionPane.showConfirmDialog(null, "msg",
+						"Title", JOptionPane.YES_NO_OPTION);
+
+				if (confirm == JOptionPane.YES_OPTION) {
+					StringBuilder query = new StringBuilder(
+							"DELETE FROM `Character` where ");
+					query.append(searchBy + " = \"" + condition + "\";");
+
+					try {
+						Database.executeQuery(query.toString());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					searchButton.doClick();
+				}
+			}
+		});
 	}
 	
 	@Override
