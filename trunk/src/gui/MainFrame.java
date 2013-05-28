@@ -18,10 +18,10 @@ public class MainFrame extends JFrame {
 		
 		JTabbedPane tabPane = new JTabbedPane();
 		getContentPane().add(tabPane);
-		tabPane.addTab("Character", new Character());
-		tabPane.addTab("Items", new Items());
-		tabPane.addTab("Spells", new Spells());
-		tabPane.addTab("Operations", new Operations());
+		tabPane.addTab("Characters", new CharacterTab());
+		tabPane.addTab("Items", new ItemTab());
+		tabPane.addTab("Spells", new SpellTab());
+		//tabPane.addTab("Operations", new Operations());
 	}
 	
 	public static void main(final String args[]) throws Exception {
