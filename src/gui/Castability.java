@@ -3,8 +3,6 @@ package gui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -14,7 +12,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
-public class Castability extends JPanel implements ActionListener {
+public class Castability extends JPanel {
 
 	public Castability() {
 		super();
@@ -32,7 +30,6 @@ public class Castability extends JPanel implements ActionListener {
 		add(searchChar, searchCharConst);
 		
 		GridBagConstraints charFieldConst = new GridBagConstraints();
-//		charFieldConst.anchor = GridBagConstraints.LINE_START;
 		charFieldConst.insets = new Insets(20, 10, 0, 0);
 		charFieldConst.gridx = 2;
 		charFieldConst.gridy = 0;
@@ -48,7 +45,6 @@ public class Castability extends JPanel implements ActionListener {
 		add(searchSpell, searchSpellConst);
 		
 		GridBagConstraints spellFieldConst = new GridBagConstraints();
-//		spellFieldConst.anchor = GridBagConstraints.LINE_START;
 		spellFieldConst.insets = new Insets(20, 10, 0, 0);
 		spellFieldConst.gridx = 4;
 		spellFieldConst.gridy = 0;
@@ -64,14 +60,12 @@ public class Castability extends JPanel implements ActionListener {
 		add(question, questionConst);
 		
 		GridBagConstraints charConst = new GridBagConstraints();
-//		charConst.insets = new Insets(0, 80, 0, 0);
 		charConst.gridx = 2;
 		charConst.gridy = 1;
 		JLabel character = new JLabel("(Character)");
 		add(character, charConst);
 		
 		GridBagConstraints spellConst = new GridBagConstraints();
-//		spellConst.insets = new Insets(0, 0, 0, 80);
 		spellConst.gridx = 4;
 		spellConst.gridy = 1;
 		JLabel spell = new JLabel("(Spell)");
@@ -82,7 +76,6 @@ public class Castability extends JPanel implements ActionListener {
 		checkButtonConst.gridx = 6;
 		checkButtonConst.gridy = 0;
 		JButton checkButton = new JButton("Check");
-		checkButton.addActionListener(this);
 		add(checkButton, checkButtonConst);
 		
 		GridBagConstraints resultsConst = new GridBagConstraints();
@@ -105,11 +98,5 @@ public class Castability extends JPanel implements ActionListener {
 		add(scrollArea, resultsTextAreaConst);
 		resultsTextArea.setEditable(false);
 	}
-
-	@Override
-	public void actionPerformed(final ActionEvent the_arguments) {
-		if (the_arguments.getActionCommand().equals("Check")) {
-			// TODO Check if spellField is a part of charField
-		}
-	}
+	// TODO Check if spellField is a part of charField
 }
