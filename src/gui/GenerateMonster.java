@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -37,7 +38,7 @@ public class GenerateMonster extends JPanel implements ActionListener {
 		monsterFieldConst.insets = new Insets(20, 10, 0, 0);
 		monsterFieldConst.gridx = 2;
 		monsterFieldConst.gridy = 0;
-		JTextField monsterField = new JTextField(3);
+		final JTextField monsterField = new JTextField(3);
 		add(monsterField, monsterFieldConst);
 		
 		GridBagConstraints genButtonConst = new GridBagConstraints();
@@ -46,7 +47,7 @@ public class GenerateMonster extends JPanel implements ActionListener {
 		genButtonConst.gridx = 5;
 		genButtonConst.gridy = 0;
 		JButton genButton = new JButton("Generate");
-		genButton.addActionListener(this);
+		//genButton.addActionListener(this);
 		add(genButton, genButtonConst);
 		
 		GridBagConstraints resultsConst = new GridBagConstraints();
@@ -68,6 +69,25 @@ public class GenerateMonster extends JPanel implements ActionListener {
 		JScrollPane scrollArea = new JScrollPane(resultsTextArea);
 		add(scrollArea, resultsTextAreaConst);
 		resultsTextArea.setEditable(false);
+		
+		//action listener to generate random monster at specific level.
+		genButton.addActionListener(new ActionListener() {
+            public void actionPerformed(final ActionEvent the_event) {
+            	String lvl = monsterField.getText();
+            	
+            	String query = "SELECT * FROM `Character` where characterLevel = " 
+            					+ lvl + " AND playerBoolean = \"N\" ORDER BY RAND() LIMIT 1;";
+            	
+            	String result = "";
+        		try {
+    				result = Database.executeQuery(query.toString());
+    			} catch (Exception e) {
+    				e.printStackTrace();
+    			}
+        		resultsTextArea.setText(result);
+            	revalidate();
+            }
+        });
 	}
 
 	@Override

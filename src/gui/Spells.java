@@ -130,7 +130,7 @@ public class Spells extends JPanel implements ActionListener {
         		}
         		if (query.substring(query.length() - 2, query.length()).equals(", ")) {
         			query.delete(query.length() - 2, query.length());
-            		query.append(" FROM Spells where " + searchBy + " = \"" + condition + "\";");
+            		query.append(" FROM `Spells` where " + searchBy + " = \"" + condition + "\";");
     				try {
     					result = Database.executeQuery(query.toString());
     				} catch (Exception e) {
@@ -158,7 +158,7 @@ public class Spells extends JPanel implements ActionListener {
 
 				if (confirm == JOptionPane.YES_OPTION) {
 					StringBuilder query = new StringBuilder(
-							"DELETE FROM `Character` where ");
+							"DELETE FROM `Spells` where ");
 					query.append(searchBy + " = \"" + condition + "\";");
 
 					try {
