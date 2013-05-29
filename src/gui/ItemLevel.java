@@ -40,17 +40,9 @@ public class ItemLevel extends JPanel implements ActionListener {
 		final JTextField levelField = new JTextField(3);
 		add(levelField, fromLevelFieldConst);
 		
-		GridBagConstraints toLevelFieldConst = new GridBagConstraints();
-		toLevelFieldConst.anchor = GridBagConstraints.LINE_START;
-		toLevelFieldConst.insets = new Insets(20, 10, 0, 10);
-		toLevelFieldConst.gridx = 4;
-		toLevelFieldConst.gridy = 0;
-		JTextField toLevelField = new JTextField(3);
-		add(toLevelField, toLevelFieldConst);
-		
 		GridBagConstraints searchButtonConst = new GridBagConstraints();
 		searchButtonConst.anchor = GridBagConstraints.LINE_START;
-		searchButtonConst.insets = new Insets(20, 20, 0, 100);
+		searchButtonConst.insets = new Insets(20, 20, 0, 140);
 		searchButtonConst.gridx = 5;
 		searchButtonConst.gridy = 0;
 		JButton genButton = new JButton("Generate");
