@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -130,9 +131,9 @@ public class Spells extends JPanel implements ActionListener {
         		}
         		if (query.substring(query.length() - 2, query.length()).equals(", ")) {
         			query.delete(query.length() - 2, query.length());
-            		query.append(" FROM `Spells` where " + searchBy + " = \"" + condition + "\";");
+            		query.append(" FROM Spell where " + searchBy + " = \"" + condition + "\";");
     				try {
-    					result = Database.executeQuery(query.toString());
+    					JTable table = Database.executeQuery(query.toString());
     				} catch (Exception e) {
     					e.printStackTrace();
     				}
@@ -158,7 +159,7 @@ public class Spells extends JPanel implements ActionListener {
 
 				if (confirm == JOptionPane.YES_OPTION) {
 					StringBuilder query = new StringBuilder(
-							"DELETE FROM `Spells` where ");
+							"DELETE FROM Spell where ");
 					query.append(searchBy + " = \"" + condition + "\";");
 
 					try {

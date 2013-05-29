@@ -5,7 +5,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;;
+import java.sql.ResultSetMetaData;
+import java.util.Vector;
+
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class Database {
 	private static Connection conn;
@@ -32,23 +37,37 @@ public class Database {
 		}	
 	}
 	
-	public static String executeQuery(String query) throws Exception {
-		result = "";
+	public static JTable executeQuery(String query) throws Exception {
 		rs = statement.executeQuery(query);
-		ResultSetMetaData meta = rs.getMetaData();
-		int colCnt = meta.getColumnCount();
-		for (int i = 1; i <= colCnt; i++) {
-			result += meta.getColumnName(i) + "\t\t";
-		}
-		result += "\r\n";
-		while (rs.next()) {
-			for (int i = 1; i <= meta.getColumnCount(); i++) {
-				result += rs.getString(i) + "\t\t";
-			}	
-			result += "\r\n";
-		}
-		return result;
+		TableModel model = resultSetToTableModel(rs);
+		return new JTable(model);
 	}
 	
+	public static int executeUpdate(String query) throws SQLException {
+		int num = statement.executeUpdate(query);
+		return num;
+	}
+	
+	public static TableModel resultSetToTableModel(ResultSet rs) {
+        try {
+            ResultSetMetaData metaData = rs.getMetaData();
+            int numberOfColumns = metaData.getColumnCount();
+            Vector columnNames = new Vector();
+            for (int column = 0; column < numberOfColumns; column++) {
+                columnNames.addElement(metaData.getColumnLabel(column + 1));
+            }
+            Vector rows = new Vector();
+            while (rs.next()) {
+                Vector newRow = new Vector();
+                for (int i = 1; i <= numberOfColumns; i++)
+                    newRow.addElement(rs.getObject(i));
+                rows.addElement(newRow);
+            }
+            return new DefaultTableModel(rows, columnNames);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
 

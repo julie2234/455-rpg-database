@@ -11,6 +11,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -80,7 +81,7 @@ public class GenerateMonster extends JPanel implements ActionListener {
             	
             	String result = "";
         		try {
-    				result = Database.executeQuery(query.toString());
+    				JTable table = Database.executeQuery(query.toString());
     			} catch (Exception e) {
     				e.printStackTrace();
     			}
