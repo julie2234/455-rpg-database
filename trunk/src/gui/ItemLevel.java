@@ -29,7 +29,7 @@ public class ItemLevel extends JPanel implements ActionListener {
 		fromLevelConst.insets = new Insets(20, 10, 0, 0);
 		fromLevelConst.gridx = 1;
 		fromLevelConst.gridy = 0;
-		JLabel fromLevel = new JLabel("Search for item from level");
+		JLabel fromLevel = new JLabel("Generate item at level");
 		add(fromLevel, fromLevelConst);
 		
 		GridBagConstraints fromLevelFieldConst = new GridBagConstraints();
@@ -37,16 +37,8 @@ public class ItemLevel extends JPanel implements ActionListener {
 		fromLevelFieldConst.insets = new Insets(20, 10, 0, 0);
 		fromLevelFieldConst.gridx = 2;
 		fromLevelFieldConst.gridy = 0;
-		JTextField fromLevelField = new JTextField(3);
-		add(fromLevelField, fromLevelFieldConst);
-		
-		GridBagConstraints toLevelConst = new GridBagConstraints();
-		toLevelConst.anchor = GridBagConstraints.LINE_START;
-		toLevelConst.insets = new Insets(20, 10, 0, 0);
-		toLevelConst.gridx = 3;
-		toLevelConst.gridy = 0;
-		JLabel toLevel = new JLabel("to level");
-		add(toLevel, toLevelConst);
+		final JTextField levelField = new JTextField(3);
+		add(levelField, fromLevelFieldConst);
 		
 		GridBagConstraints toLevelFieldConst = new GridBagConstraints();
 		toLevelFieldConst.anchor = GridBagConstraints.LINE_START;
@@ -61,9 +53,9 @@ public class ItemLevel extends JPanel implements ActionListener {
 		searchButtonConst.insets = new Insets(20, 20, 0, 100);
 		searchButtonConst.gridx = 5;
 		searchButtonConst.gridy = 0;
-		JButton searchButton = new JButton("Search");
-		searchButton.addActionListener(this);
-		add(searchButton, searchButtonConst);
+		JButton genButton = new JButton("Generate");
+		//searchButton.addActionListener(this);
+		add(genButton, searchButtonConst);
 		
 		GridBagConstraints resultsConst = new GridBagConstraints();
 		resultsConst.anchor = GridBagConstraints.LAST_LINE_START;
@@ -84,6 +76,24 @@ public class ItemLevel extends JPanel implements ActionListener {
 		JScrollPane scrollArea = new JScrollPane(resultsTextArea);
 		add(scrollArea, resultsTextAreaConst);
 		resultsTextArea.setEditable(false);
+		
+		genButton.addActionListener(new ActionListener() {
+            public void actionPerformed(final ActionEvent the_event) {
+            	String lvl = levelField.getText();
+            	
+            	String query = "SELECT * FROM `Items` where itemLevel = " 
+            					+ lvl + " ORDER BY RAND() LIMIT 1;";
+            	
+            	String result = "";
+        		try {
+    				result = Database.executeQuery(query.toString());
+    			} catch (Exception e) {
+    				e.printStackTrace();
+    			}
+        		resultsTextArea.setText(result);
+            	revalidate();
+            }
+        });
 	}
 
 	@Override

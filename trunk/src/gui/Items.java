@@ -132,7 +132,7 @@ public class Items extends JPanel implements ActionListener {
         		}
         		if (query.substring(query.length() - 2, query.length()).equals(", ")) {
         			query.delete(query.length() - 2, query.length());
-            		query.append(" FROM Item where " + searchBy + " = \"" + condition + "\";");
+            		query.append(" FROM `Item` where " + searchBy + " = \"" + condition + "\";");
     				try {
     					result = Database.executeQuery(query.toString());
     				} catch (Exception e) {
