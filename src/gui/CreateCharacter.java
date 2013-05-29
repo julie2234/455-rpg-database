@@ -3,12 +3,16 @@ package gui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -36,7 +40,7 @@ public class CreateCharacter extends JPanel {
 		charFieldConst.insets = new Insets(20, 10, 0, 0);
 		charFieldConst.gridx = 2;
 		charFieldConst.gridy = 0;
-		JTextField charField = new JTextField(10);
+		final JTextField charField = new JTextField(10);
 		add(charField, charFieldConst);
 		
 		GridBagConstraints searchSpellConst = new GridBagConstraints();
@@ -83,6 +87,25 @@ public class CreateCharacter extends JPanel {
 		JScrollPane scrollArea = new JScrollPane(resultsTextArea);
 		add(scrollArea, resultsTextAreaConst);
 		resultsTextArea.setEditable(false);
+		
+		createButton.addActionListener(new ActionListener() {
+            public void actionPerformed(final ActionEvent the_event) {
+            	StringBuilder query = new StringBuilder("INSERT INTO `Character` VALUES(");
+            	query.append("'" + charField.getText() + "', 'T', ");
+            	query.append("'" + (String) raceByDropdown.getSelectedItem() + "', 1, 0, 100, 100, 100");
+            	
+            	String result = "";
+        		
+        		try {
+    					JTable table = Database.executeQuery(query.toString());
+    				} catch (Exception e) {
+    					e.printStackTrace();
+    				}
+        		resultsTextArea.setText(result);
+            	revalidate();
+            }
+        });
+		
 	}
 	// TODO Add a tuple to Character with characterName of charField and race of raceByDropdown
 }
