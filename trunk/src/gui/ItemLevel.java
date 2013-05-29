@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -73,12 +74,12 @@ public class ItemLevel extends JPanel implements ActionListener {
             public void actionPerformed(final ActionEvent the_event) {
             	String lvl = levelField.getText();
             	
-            	String query = "SELECT * FROM `Items` where itemLevel = " 
+            	String query = "SELECT * FROM `Item` where itemLevel = " 
             					+ lvl + " ORDER BY RAND() LIMIT 1;";
             	
             	String result = "";
         		try {
-    				result = Database.executeQuery(query.toString());
+    				JTable table = Database.executeQuery(query.toString());
     			} catch (Exception e) {
     				e.printStackTrace();
     			}

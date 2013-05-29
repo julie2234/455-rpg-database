@@ -10,10 +10,12 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -132,9 +134,9 @@ public class Items extends JPanel implements ActionListener {
         		}
         		if (query.substring(query.length() - 2, query.length()).equals(", ")) {
         			query.delete(query.length() - 2, query.length());
-            		query.append(" FROM `Item` where " + searchBy + " = \"" + condition + "\";");
+            		query.append(" FROM Item where " + searchBy + " = \"" + condition + "\";");
     				try {
-    					result = Database.executeQuery(query.toString());
+    					JTable table = Database.executeQuery(query.toString());
     				} catch (Exception e) {
     					e.printStackTrace();
     				}

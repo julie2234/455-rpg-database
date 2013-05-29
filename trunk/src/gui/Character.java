@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -136,7 +137,7 @@ public class Character extends JPanel implements ActionListener {
 					query.append(" FROM `Character` where " + searchBy
 							+ " = \"" + condition + "\";");
 					try {
-						result = Database.executeQuery(query.toString());
+						JTable table = Database.executeQuery(query.toString());
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
