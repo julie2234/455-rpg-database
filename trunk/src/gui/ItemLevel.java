@@ -15,7 +15,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
-public class ItemLevel extends JPanel implements ActionListener {
+public class ItemLevel extends JPanel {
 
 	public ItemLevel() {
 		super();
@@ -47,7 +47,6 @@ public class ItemLevel extends JPanel implements ActionListener {
 		searchButtonConst.gridx = 5;
 		searchButtonConst.gridy = 0;
 		JButton genButton = new JButton("Generate");
-		//searchButton.addActionListener(this);
 		add(genButton, searchButtonConst);
 		
 		GridBagConstraints resultsConst = new GridBagConstraints();
@@ -87,12 +86,5 @@ public class ItemLevel extends JPanel implements ActionListener {
             	revalidate();
             }
         });
-	}
-
-	@Override
-	public void actionPerformed(final ActionEvent the_arguments) {
-		if (the_arguments.getActionCommand().equals("Search")) {
-			// TODO Search for items that have a level within fromLevelField to toLevelField
-		}
 	}
 }

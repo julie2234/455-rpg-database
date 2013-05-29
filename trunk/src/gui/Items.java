@@ -10,7 +10,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -20,7 +19,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
-public class Items extends JPanel implements ActionListener {
+public class Items extends JPanel {
 
 	public Items() throws Exception {
 		super();
@@ -65,17 +64,13 @@ public class Items extends JPanel implements ActionListener {
 		searchButtonConst.gridx = 6;
 		searchButtonConst.gridy = 0;
 		final JButton searchButton = new JButton("Search");
-		//searchButton.addActionListener(this);
 		add(searchButton, searchButtonConst);
 		
 		GridBagConstraints deleteButtonConst = new GridBagConstraints();
-//		deleteButtonConst.anchor = GridBagConstraints.LINE_START;
 		deleteButtonConst.insets = new Insets(40, 0, 0, 0);
-//		deleteButtonConst.weightx = 1.0;
 		deleteButtonConst.gridx = 3;
 		deleteButtonConst.gridy = 1;
 		JButton deleteButton = new JButton("Delete All");
-		deleteButton.addActionListener(this);
 		add(deleteButton, deleteButtonConst);
 		
 		GridBagConstraints resultsConst = new GridBagConstraints();
@@ -175,17 +170,6 @@ public class Items extends JPanel implements ActionListener {
 				}
 			}
 		});
-	}
-	
-	@Override
-	public void actionPerformed(final ActionEvent the_arguments) {
-		if (the_arguments.getActionCommand().equals("Search")) {
-			// TODO Add database search based on searchByDropdown and checkboxes
-			
-		} else if (the_arguments.getActionCommand().equals("Delete All")) {
-			// TODO Delete all of the results of the last search
-			
-		}
 	}
 }
 
