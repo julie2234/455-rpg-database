@@ -19,7 +19,7 @@ import javax.swing.border.Border;
 
 @SuppressWarnings("serial")
 public class Character extends JPanel {
-	private String[] attributes = {"characterID", "characterName","characterLevel", "race", "playerBoolean", "backpackID", "HP", "MP", "stamina", "experience"};
+	private String[] attributes = {"characterID", "characterName","characterLevel", "race", "playerBoolean", "HP", "MP", "stamina", "experience"};
 	
 	public Character() throws Exception {
 		super();
