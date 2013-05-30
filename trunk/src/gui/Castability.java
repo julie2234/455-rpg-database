@@ -139,12 +139,16 @@ public class Castability extends JPanel {
 					e.printStackTrace();
 				}
 				
-				String result = "No";
+				StringBuilder result = new StringBuilder("No\n\n");
+				result.append(query1.toString() + "\n\n" + prereq);
+				result.append(q2.toString() + "\n\n" + type);
+				result.append(q3.toString() + "\n\n");
+				
 				if (canDo.equals("T")) {
-					result = "Yes";
+					result.append("\n\nYes");
 				}
 				
-				resultsTextArea.setText(result);
+				resultsTextArea.setText(result.toString());
 				revalidate();
 				
 			}
