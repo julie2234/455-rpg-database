@@ -19,7 +19,8 @@ import javax.swing.border.Border;
 
 @SuppressWarnings("serial")
 public class Character extends JPanel {
-	private String[] attributes = {"characterID", "characterName","characterLevel", "race", "playerBoolean", "HP", "MP", "stamina", "experience"};
+	private String[] attributes = {"characterID", "characterName","characterLevel",
+			"race", "playerBoolean", "HP", "MP", "stamina", "experience"};
 	
 	public Character() throws Exception {
 		super();
@@ -89,29 +90,43 @@ public class Character extends JPanel {
 			public void actionPerformed(final ActionEvent the_event) {
 				String searchBy = (String) searchByDropdown.getSelectedItem();
 				String condition = textField.getText();
-				StringBuilder query = new StringBuilder("SELECT ");
-				for (JCheckBox box : checkboxes) {
-					if (box.isSelected())
-						query.append(box.getText() + ", ");
+				boolean isInt = true;
+				try {
+					Integer.parseInt(condition);
+				} catch (NumberFormatException e) {
+					isInt = false;
 				}
-				if (query.substring(query.length() - 2, query.length()).equals(
-						", ")) {
-					query.delete(query.length() - 2, query.length());
-					query.append(" FROM `Character` where " + searchBy
-							+ " = \"" + condition + "\";");
-					JTable table = null;
-					try {
-						table = Database.executeQuery(query.toString());
-					} catch (Exception e) {
-						e.printStackTrace();
+				if ((searchBy.equals("characterID") || searchBy.equals("characterLevel")
+						|| searchBy.equals("HP") || searchBy.equals("MP") || searchBy.equals("stamina")
+						|| searchBy.equals("experience")) && !isInt || Integer.parseInt(condition) <= 0) {
+					JOptionPane.showMessageDialog(Character.this, "Input must be a positive integer.", "Input Error", JOptionPane.ERROR_MESSAGE);
+				} else {
+				
+					StringBuilder query = new StringBuilder("SELECT ");
+					for (JCheckBox box : checkboxes) {
+						if (box.isSelected())
+							query.append(box.getText() + ", ");
 					}
-					
-					JScrollPane scrollArea = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-					table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-					resultsPanel.removeAll();
-					resultsPanel.add(scrollArea, BorderLayout.CENTER);
-					revalidate();
-					deleteButton.setEnabled(true);
+					if (query.substring(query.length() - 2, query.length()).equals(
+							", ")) {
+						query.delete(query.length() - 2, query.length());
+						query.append(" FROM `Character` where " + searchBy
+								+ " = \"" + condition + "\";");
+						JTable table = null;
+						try {
+							table = Database.executeQuery(query.toString());
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						
+						JScrollPane scrollArea = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+								JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+						table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+						resultsPanel.removeAll();
+						resultsPanel.add(scrollArea, BorderLayout.CENTER);
+						revalidate();
+						deleteButton.setEnabled(true);
+					}
 				}
 			}
 		});
@@ -134,7 +149,8 @@ public class Character extends JPanel {
 						e.printStackTrace();
 					}
 					
-					JScrollPane scrollArea = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+					JScrollPane scrollArea = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+							JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 					table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 					resultsPanel.removeAll();
 					resultsPanel.add(scrollArea, BorderLayout.CENTER);

@@ -19,7 +19,8 @@ import javax.swing.border.Border;
 
 @SuppressWarnings("serial")
 public class Items extends JPanel {
-	private String[] attributes = {"itemID", "itemName", "itemType", "itemLevel", "cost", "weight", "perk", "defense", "upgrade", "damage", "duration", "potency"};
+	private String[] attributes = {"itemID", "itemName", "itemType", "itemLevel", "cost",
+			"weight", "perk", "defense", "upgrade", "damage", "duration", "potency"};
 	
 	public Items() throws Exception {
 		super();
@@ -89,30 +90,45 @@ public class Items extends JPanel {
 			public void actionPerformed(final ActionEvent the_event) {
 				String searchBy = (String) searchByDropdown.getSelectedItem();
 				String condition = textField.getText();
-				StringBuilder query = new StringBuilder("SELECT ");
-				for (JCheckBox box : checkboxes) {
-					if (box.isSelected())
-						query.append(box.getText() + ", ");
+				boolean isInt = true;
+				try {
+					Integer.parseInt(condition);
+				} catch (NumberFormatException e) {
+					isInt = false;
 				}
-				if (query.substring(query.length() - 2, query.length()).equals(
-						", ")) {
-					query.delete(query.length() - 2, query.length());
-					query.append(" FROM `Item` where " + searchBy
-							+ " = \"" + condition + "\";");
-					JTable table = null;
-					try {
-						table = Database.executeQuery(query.toString());
-					} catch (Exception e) {
-						e.printStackTrace();
+				if ((searchBy.equals("itemID") || searchBy.equals("itemLevel") || searchBy.equals("cost")
+						|| searchBy.equals("weight") || searchBy.equals("damage") || searchBy.equals("duration")
+						|| searchBy.equals("potency")) && !isInt || Integer.parseInt(condition) <= 0) {
+					JOptionPane.showMessageDialog(Items.this, "Input must be a positive integer.",
+							"Input Error", JOptionPane.ERROR_MESSAGE);
+				} else {
+				
+					StringBuilder query = new StringBuilder("SELECT ");
+					for (JCheckBox box : checkboxes) {
+						if (box.isSelected())
+							query.append(box.getText() + ", ");
 					}
-					
-					JScrollPane scrollArea = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-					table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-					resultsPanel.removeAll();
-					resultsPanel.add(scrollArea, BorderLayout.CENTER);
-					revalidate();
-					deleteButton.setEnabled(true);
-				}
+					if (query.substring(query.length() - 2, query.length()).equals(
+							", ")) {
+						query.delete(query.length() - 2, query.length());
+						query.append(" FROM `Item` where " + searchBy
+								+ " = \"" + condition + "\";");
+						JTable table = null;
+						try {
+							table = Database.executeQuery(query.toString());
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						
+						JScrollPane scrollArea = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+								JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+						table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+						resultsPanel.removeAll();
+						resultsPanel.add(scrollArea, BorderLayout.CENTER);
+						revalidate();
+						deleteButton.setEnabled(true);
+					}
+				}	
 			}
 		});
 		
@@ -134,7 +150,8 @@ public class Items extends JPanel {
 						e.printStackTrace();
 					}
 					
-					JScrollPane scrollArea = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+					JScrollPane scrollArea = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+							JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 					table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 					resultsPanel.removeAll();
 					resultsPanel.add(scrollArea, BorderLayout.CENTER);

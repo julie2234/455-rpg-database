@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+@SuppressWarnings("serial")
 public class Backpack extends JPanel {
 	private String[] attributes = { "characterID", "itemID", "count" };
 
@@ -64,23 +65,36 @@ public class Backpack extends JPanel {
 			public void actionPerformed(final ActionEvent the_event) {
 				String searchBy = (String) searchByDropdown.getSelectedItem();
 				String condition = textField.getText();
-				searchButton.doClick();
-				String msg = "Are you sure you wish to delete all of the searched results?";
-				String title = "Confirm Delete";
-				int confirm = JOptionPane.showConfirmDialog(null, msg, title,
-						JOptionPane.YES_NO_OPTION);
-
-				if (confirm == JOptionPane.YES_OPTION) {
-					StringBuilder query = new StringBuilder(
-							"DELETE FROM `Backpack` where ");
-					query.append(searchBy + " = \"" + condition + "\";");
-
-					try {
-						Database.executeUpdate(query.toString());
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
+				boolean isInt = true;
+				try {
+					Integer.parseInt(condition);
+				} catch (NumberFormatException e) {
+					isInt = false;
+				}
+				if ((searchBy.equals("characterID") || searchBy.equals("itemID") || searchBy.equals("count"))
+						&& !isInt || Integer.parseInt(condition) <= 0) {
+					JOptionPane.showMessageDialog(Backpack.this, "Input must be a positive integer.",
+							"Input Error", JOptionPane.ERROR_MESSAGE);
+				} else {
+				
 					searchButton.doClick();
+					String msg = "Are you sure you wish to delete all of the searched results?";
+					String title = "Confirm Delete";
+					int confirm = JOptionPane.showConfirmDialog(null, msg, title,
+							JOptionPane.YES_NO_OPTION);
+	
+					if (confirm == JOptionPane.YES_OPTION) {
+						StringBuilder query = new StringBuilder(
+								"DELETE FROM `Backpack` where ");
+						query.append(searchBy + " = \"" + condition + "\";");
+	
+						try {
+							Database.executeUpdate(query.toString());
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						searchButton.doClick();
+					}
 				}
 			}
 		});

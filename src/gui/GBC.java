@@ -7,6 +7,7 @@ import java.awt.*;
  * @version 1.01 2004-05-06
  * @author Cay Horstmann
  */
+@SuppressWarnings("serial")
 public class GBC extends GridBagConstraints
 {
    /**
