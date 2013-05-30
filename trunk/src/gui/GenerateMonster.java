@@ -50,7 +50,8 @@ public class GenerateMonster extends JPanel {
     					+ lvl + " AND playerBoolean = \"F\" ORDER BY RAND() LIMIT 1;";
             	try {
     				JTable table = Database.executeQuery(query.toString());
-    				JScrollPane scrollArea = new JScrollPane(table);
+    				JScrollPane scrollArea = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+					table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 					resultsPanel.removeAll();
 					resultsPanel.add(scrollArea);
 					revalidate();
