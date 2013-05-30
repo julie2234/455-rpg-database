@@ -17,12 +17,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
-@SuppressWarnings("serial")
-public class Character extends JPanel {
-	private String[] attributes = {"characterID", "characterName","characterLevel", "race", "playerBoolean", "HP", "MP", "stamina", "experience"};
-	
-	public Character() throws Exception {
-		super();
+public class Backpack extends JPanel {
+	private String[] attributes = { "characterID", "itemID", "count" };
+
+	public Backpack() throws Exception {
 		initialize();
 	}
 
@@ -32,29 +30,31 @@ public class Character extends JPanel {
 
 		// create search panel
 		JPanel searchPanel = new JPanel();
-		searchPanel.setLayout(new GridLayout(0,1));
-		searchPanel.setBorder(BorderFactory.createTitledBorder(etched, "Search for"));
+		searchPanel.setLayout(new GridLayout(0, 1));
+		searchPanel.setBorder(BorderFactory.createTitledBorder(etched,
+				"Search for"));
 		final JComboBox searchByDropdown = new JComboBox(attributes);
 		searchPanel.add(searchByDropdown);
 		final JTextField textField = new JTextField();
 		textField.setColumns(10);
 		searchPanel.add(textField);
-		
+
 		// create checkboxes
 		JPanel displayPanel = new JPanel();
-		displayPanel.setLayout(new GridLayout(0,1));
-		displayPanel.setBorder(BorderFactory.createTitledBorder(etched, "Display"));
+		displayPanel.setLayout(new GridLayout(0, 1));
+		displayPanel.setBorder(BorderFactory.createTitledBorder(etched,
+				"Display"));
 		final JCheckBox[] checkboxes = new JCheckBox[attributes.length];
 		for (int i = 0; i < attributes.length; i++) {
 			checkboxes[i] = new JCheckBox(attributes[i]);
 			checkboxes[i].setSelected(true);
 			displayPanel.add(checkboxes[i]);
 		}
-		
+
 		// create results area
 		final JPanel resultsPanel = new JPanel();
 		resultsPanel.setLayout(new BorderLayout());
-		
+
 		// create buttons
 		final JButton searchButton = new JButton("Search");
 		final JButton viewAllButton = new JButton("View All");
@@ -67,12 +67,12 @@ public class Character extends JPanel {
 				searchButton.doClick();
 				String msg = "Are you sure you wish to delete all of the searched results?";
 				String title = "Confirm Delete";
-				int confirm = JOptionPane.showConfirmDialog(null, msg,
-						title, JOptionPane.YES_NO_OPTION);
+				int confirm = JOptionPane.showConfirmDialog(null, msg, title,
+						JOptionPane.YES_NO_OPTION);
 
 				if (confirm == JOptionPane.YES_OPTION) {
 					StringBuilder query = new StringBuilder(
-							"DELETE FROM `Character` where ");
+							"DELETE FROM `Backpack` where ");
 					query.append(searchBy + " = \"" + condition + "\";");
 
 					try {
@@ -97,16 +97,18 @@ public class Character extends JPanel {
 				if (query.substring(query.length() - 2, query.length()).equals(
 						", ")) {
 					query.delete(query.length() - 2, query.length());
-					query.append(" FROM `Character` where " + searchBy
-							+ " = \"" + condition + "\";");
+					query.append(" FROM `Backpack` where " + searchBy + " = \""
+							+ condition + "\";");
 					JTable table = null;
 					try {
 						table = Database.executeQuery(query.toString());
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					
-					JScrollPane scrollArea = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+					JScrollPane scrollArea = new JScrollPane(table,
+							JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+							JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 					table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 					resultsPanel.removeAll();
 					resultsPanel.add(scrollArea, BorderLayout.CENTER);
@@ -115,7 +117,7 @@ public class Character extends JPanel {
 				}
 			}
 		});
-		
+
 		viewAllButton.addActionListener(new ActionListener() {
 			public void actionPerformed(final ActionEvent the_event) {
 				StringBuilder query = new StringBuilder("SELECT ");
@@ -126,15 +128,17 @@ public class Character extends JPanel {
 				if (query.substring(query.length() - 2, query.length()).equals(
 						", ")) {
 					query.delete(query.length() - 2, query.length());
-					query.append(" FROM `Character`;");
+					query.append(" FROM `Backpack`;");
 					JTable table = null;
 					try {
 						table = Database.executeQuery(query.toString());
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					
-					JScrollPane scrollArea = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+					JScrollPane scrollArea = new JScrollPane(table,
+							JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+							JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 					table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 					resultsPanel.removeAll();
 					resultsPanel.add(scrollArea, BorderLayout.CENTER);
@@ -144,16 +148,15 @@ public class Character extends JPanel {
 			}
 		});
 
-		
 		// add everything to the panel
 		JPanel sidebar = new JPanel();
 		sidebar.setLayout(new GridBagLayout());
-		sidebar.add(searchPanel, new GBC(0,0,1,2));
-		sidebar.add(displayPanel, new GBC(0,2,1,5).setFill(GBC.HORIZONTAL));
-		sidebar.add(searchButton, new GBC(0,7,1,1).setFill(GBC.HORIZONTAL));
-		sidebar.add(viewAllButton, new GBC(0,8,1,1).setFill(GBC.HORIZONTAL));
-		sidebar.add(deleteButton, new GBC(0,9,1,1).setFill(GBC.HORIZONTAL));
+		sidebar.add(searchPanel, new GBC(0, 0, 1, 2));
+		sidebar.add(displayPanel, new GBC(0, 2, 1, 5).setFill(GBC.HORIZONTAL));
+		sidebar.add(searchButton, new GBC(0, 7, 1, 1).setFill(GBC.HORIZONTAL));
+		sidebar.add(viewAllButton, new GBC(0, 8, 1, 1).setFill(GBC.HORIZONTAL));
+		sidebar.add(deleteButton, new GBC(0, 9, 1, 1).setFill(GBC.HORIZONTAL));
 		add(sidebar, BorderLayout.WEST);
-		add(resultsPanel, BorderLayout.CENTER);
+		add(resultsPanel, BorderLayout.EAST);
 	}
 }

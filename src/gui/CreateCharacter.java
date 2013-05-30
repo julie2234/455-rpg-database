@@ -32,7 +32,7 @@ public class CreateCharacter extends JPanel {
 		// create name panel
 		JPanel namePanel = new JPanel();
 		namePanel.setLayout(new GridLayout(0,1));
-		namePanel.setBorder(BorderFactory.createTitledBorder(etched, "Character name:"));
+		namePanel.setBorder(BorderFactory.createTitledBorder(etched, "Character name"));
 		final JTextField nameField = new JTextField();
 		nameField.setColumns(10);
 		namePanel.add(nameField);
@@ -40,13 +40,14 @@ public class CreateCharacter extends JPanel {
 		// create race panel
 		JPanel racePanel = new JPanel();
 		racePanel.setLayout(new GridLayout(0,1));
-		racePanel.setBorder(BorderFactory.createTitledBorder(etched, "Character race:"));
+		racePanel.setBorder(BorderFactory.createTitledBorder(etched, "Character race"));
 		String[] dropdown = {"High elf", "Argonian", "Wood elf", "Breton", "Dunmer", "Imperial", "Khajiit", "Nord", "Orc", "Redguard"};
 		final JComboBox raceByDropdown = new JComboBox(dropdown);
 		racePanel.add(raceByDropdown);
 		
 		// create results area
 		final JPanel resultsPanel = new JPanel();
+		resultsPanel.setLayout(new BorderLayout());
 		
 		// create buttons
 		final JButton createButton = new JButton("Create");
@@ -140,6 +141,6 @@ public class CreateCharacter extends JPanel {
 		sidebar.add(racePanel, new GBC(0,2,1,5).setFill(GBC.HORIZONTAL));
 		sidebar.add(createButton, new GBC(0,7,1,1).setFill(GBC.HORIZONTAL));
 		add(sidebar, BorderLayout.WEST);
-		add(resultsPanel, BorderLayout.EAST);
+		add(resultsPanel, BorderLayout.CENTER);
 	}
 }

@@ -17,11 +17,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
-@SuppressWarnings("serial")
-public class Character extends JPanel {
-	private String[] attributes = {"characterID", "characterName","characterLevel", "race", "playerBoolean", "HP", "MP", "stamina", "experience"};
-	
-	public Character() throws Exception {
+public class SpellTree extends JPanel {
+	private String[] attributes = {"characterID", "magicType", "novice", "apprentice", "adept", "expert", "master"};
+
+	public SpellTree() throws Exception {
 		super();
 		initialize();
 	}
@@ -39,7 +38,7 @@ public class Character extends JPanel {
 		final JTextField textField = new JTextField();
 		textField.setColumns(10);
 		searchPanel.add(textField);
-		
+
 		// create checkboxes
 		JPanel displayPanel = new JPanel();
 		displayPanel.setLayout(new GridLayout(0,1));
@@ -50,11 +49,11 @@ public class Character extends JPanel {
 			checkboxes[i].setSelected(true);
 			displayPanel.add(checkboxes[i]);
 		}
-		
+
 		// create results area
 		final JPanel resultsPanel = new JPanel();
 		resultsPanel.setLayout(new BorderLayout());
-		
+
 		// create buttons
 		final JButton searchButton = new JButton("Search");
 		final JButton viewAllButton = new JButton("View All");
@@ -72,7 +71,7 @@ public class Character extends JPanel {
 
 				if (confirm == JOptionPane.YES_OPTION) {
 					StringBuilder query = new StringBuilder(
-							"DELETE FROM `Character` where ");
+							"DELETE FROM `Spell Tree` where ");
 					query.append(searchBy + " = \"" + condition + "\";");
 
 					try {
@@ -97,7 +96,7 @@ public class Character extends JPanel {
 				if (query.substring(query.length() - 2, query.length()).equals(
 						", ")) {
 					query.delete(query.length() - 2, query.length());
-					query.append(" FROM `Character` where " + searchBy
+					query.append(" FROM `Spell Tree` where " + searchBy
 							+ " = \"" + condition + "\";");
 					JTable table = null;
 					try {
@@ -105,35 +104,7 @@ public class Character extends JPanel {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					
-					JScrollPane scrollArea = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-					table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-					resultsPanel.removeAll();
-					resultsPanel.add(scrollArea, BorderLayout.CENTER);
-					revalidate();
-					deleteButton.setEnabled(true);
-				}
-			}
-		});
-		
-		viewAllButton.addActionListener(new ActionListener() {
-			public void actionPerformed(final ActionEvent the_event) {
-				StringBuilder query = new StringBuilder("SELECT ");
-				for (JCheckBox box : checkboxes) {
-					if (box.isSelected())
-						query.append(box.getText() + ", ");
-				}
-				if (query.substring(query.length() - 2, query.length()).equals(
-						", ")) {
-					query.delete(query.length() - 2, query.length());
-					query.append(" FROM `Character`;");
-					JTable table = null;
-					try {
-						table = Database.executeQuery(query.toString());
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					
+
 					JScrollPane scrollArea = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 					table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 					resultsPanel.removeAll();
@@ -144,7 +115,35 @@ public class Character extends JPanel {
 			}
 		});
 
-		
+		viewAllButton.addActionListener(new ActionListener() {
+			public void actionPerformed(final ActionEvent the_event) {
+				StringBuilder query = new StringBuilder("SELECT ");
+				for (JCheckBox box : checkboxes) {
+					if (box.isSelected())
+						query.append(box.getText() + ", ");
+				}
+				if (query.substring(query.length() - 2, query.length()).equals(
+						", ")) {
+					query.delete(query.length() - 2, query.length());
+					query.append(" FROM `Spell Tree`;");
+					JTable table = null;
+					try {
+						table = Database.executeQuery(query.toString());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
+					JScrollPane scrollArea = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+					table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+					resultsPanel.removeAll();
+					resultsPanel.add(scrollArea, BorderLayout.CENTER);
+					revalidate();
+					deleteButton.setEnabled(true);
+				}
+			}
+		});
+
+
 		// add everything to the panel
 		JPanel sidebar = new JPanel();
 		sidebar.setLayout(new GridBagLayout());
