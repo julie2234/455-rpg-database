@@ -128,8 +128,8 @@ public class Castability extends JPanel {
 				
 				StringBuilder q3 = new StringBuilder("SELECT ");
 				q3.append(prereq);
-				q3.append(" FROM `SpellTree` WHERE magicType = \"");
-				q3.append(type + "\" AND charID = ");
+				q3.append(" FROM `Spell Tree` WHERE magicType = \"");
+				q3.append(type + "\" AND characterID = ");
 				q3.append(charID + ";");
 				
 				String canDo = "";
@@ -139,16 +139,13 @@ public class Castability extends JPanel {
 					e.printStackTrace();
 				}
 				
-				StringBuilder result = new StringBuilder("No\n\n");
-				result.append(query1.toString() + "\n" + prereq + "\n\n");
-				result.append(q2.toString() + "\n" + type + "\n\n");
-				result.append(q3.toString() + "\n\n");
+				String result = "No";
 				
 				if (canDo.equals("T")) {
-					result.append("\n\nYes");
+					result = "Yes";
 				}
 				
-				resultsTextArea.setText(result.toString());
+				resultsTextArea.setText(result);
 				revalidate();
 				
 			}

@@ -44,8 +44,17 @@ public class Database {
 	}
 	
 	public static String executeQueryString(String query) throws Exception {
-		rs = statement.executeQuery(query);		
-		return rs.getString(1);
+		rs = statement.executeQuery(query);
+		ResultSetMetaData meta = rs.getMetaData();
+		String result = "";
+		int colCnt = meta.getColumnCount();
+		while (rs.next()) {
+			for (int i = 1; i <= meta.getColumnCount(); i++) {
+				result += rs.getString(i);
+			}	
+		}
+		return result;
+		
 	}
 	
 	public static int executeUpdate(String query) throws SQLException {
