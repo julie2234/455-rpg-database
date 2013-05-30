@@ -90,6 +90,8 @@ public class CreateCharacter extends JPanel {
 		
 		createButton.addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent the_event) {
+            	//INSERT INTO `Character` (characterName, characterLevel, race, playerBoolean, backpackID, HP, MP, stamina, experience) 
+            	//VALUES('Ainsley', 3, 'Giant', 'T', 'B1009', 100, 100, 100, 100);
             	StringBuilder query = new StringBuilder("INSERT INTO `Character` VALUES(");
             	query.append("'" + charField.getText() + "', 'T', ");
             	query.append("'" + (String) raceByDropdown.getSelectedItem() + "', 1, 0, 100, 100, 100");
