@@ -1,11 +1,17 @@
 package gui;
 
+import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame {
@@ -31,7 +37,42 @@ public class MainFrame extends JFrame {
 		frame.setVisible(true);
 		//frame.pack();
 		frame.setLocationRelativeTo(null);
-		Database.connect();
+		//Database.connect();
+		createGuiFrame();
+	}
+	
+	private static void createGuiFrame() {
+
+		JPanel userPanel = new JPanel();
+		userPanel.setLayout(new GridLayout(2, 2));
+
+		JLabel usernameLbl = new JLabel("Username:");
+		JLabel passwordLbl = new JLabel("Password:");
+		JTextField username = new JTextField();
+		JPasswordField password = new JPasswordField();
+
+		userPanel.add(usernameLbl);
+		userPanel.add(username);
+		userPanel.add(passwordLbl);
+		userPanel.add(password);
+
+		int input = JOptionPane.showConfirmDialog(null, userPanel,
+				"Enter your login information:", JOptionPane.OK_CANCEL_OPTION,
+				JOptionPane.PLAIN_MESSAGE);
+
+		if (input == JOptionPane.OK_OPTION) {
+			
+			String pass = new String(password.getPassword());
+			try {
+				Database.connect(username.getText(), pass);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+
 	}
 	
 	class DisconnectAndClose extends WindowAdapter {
