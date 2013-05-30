@@ -3,11 +3,15 @@ package gui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -33,7 +37,7 @@ public class Castability extends JPanel {
 		charFieldConst.insets = new Insets(20, 10, 0, 0);
 		charFieldConst.gridx = 2;
 		charFieldConst.gridy = 0;
-		JTextField charField = new JTextField(10);
+		final JTextField charField = new JTextField(10);
 		add(charField, charFieldConst);
 		
 		GridBagConstraints searchSpellConst = new GridBagConstraints();
@@ -48,7 +52,7 @@ public class Castability extends JPanel {
 		spellFieldConst.insets = new Insets(20, 10, 0, 0);
 		spellFieldConst.gridx = 4;
 		spellFieldConst.gridy = 0;
-		JTextField spellField = new JTextField(10);
+		final JTextField spellField = new JTextField(10);
 		add(spellField, spellFieldConst);
 		
 		GridBagConstraints questionConst = new GridBagConstraints();
@@ -96,7 +100,55 @@ public class Castability extends JPanel {
 		final JTextArea resultsTextArea = new JTextArea(12, 40);
 		JScrollPane scrollArea = new JScrollPane(resultsTextArea);
 		add(scrollArea, resultsTextAreaConst);
-		resultsTextArea.setEditable(false);
+		//resultsTextArea.setEditable(false);
+		
+		checkButton.addActionListener(new ActionListener() {
+			public void actionPerformed(final ActionEvent the_event) {
+				String charID = charField.getText();
+				String spell = spellField.getText();
+				StringBuilder query1 = new StringBuilder("SELECT prerequisite FROM `Spell` WHERE spellName = \"");
+				query1.append(spell + "\";");
+
+				String prereq = "";
+				try {
+					prereq = Database.executeQueryString(query1.toString());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				StringBuilder q2 = new StringBuilder("SELECT magicType FROM `Spell` WHERE spellName = \"");
+				q2.append(spell + "\";");
+				
+				String type = "";
+				try {
+					type = Database.executeQueryString(q2.toString());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				StringBuilder q3 = new StringBuilder("SELECT ");
+				q3.append(prereq);
+				q3.append(" FROM `SpellTree` WHERE magicType = \"");
+				q3.append(type + "\" AND charID = \"");
+				q3.append(charID + "\";");
+				
+				String canDo = "";
+				try {
+					canDo = Database.executeQueryString(q3.toString());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				String result = "No";
+				if (canDo.equals("T")) {
+					result = "Yes";
+				}
+				
+				resultsTextArea.setText(result);
+				revalidate();
+				
+			}
+		});
 	}
 	// TODO Check if spellField is a part of charField
 }
