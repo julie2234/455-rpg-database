@@ -20,7 +20,7 @@ public class ItemTab extends JPanel {
 		JTabbedPane tabPane = new JTabbedPane();
 		add(tabPane, BorderLayout.CENTER);
 		tabPane.addTab("Search", search);
-		tabPane.addTab("Generate Spell", itemLevel);
+		tabPane.addTab("Generate Item", itemLevel);
 	}
 }
 
