@@ -32,13 +32,14 @@ public class ItemLevel extends JPanel {
 		// create search panel
 		JPanel searchPanel = new JPanel();
 		searchPanel.setLayout(new GridLayout(0,1));
-		searchPanel.setBorder(BorderFactory.createTitledBorder(etched, "Item level:"));
+		searchPanel.setBorder(BorderFactory.createTitledBorder(etched, "Item level"));
 		final JTextField levelField = new JTextField();
 		levelField.setColumns(10);
 		searchPanel.add(levelField);
 		
 		// create results area
 		final JPanel resultsPanel = new JPanel();
+		resultsPanel.setLayout(new BorderLayout());
 		
 		// create buttons
 		final JButton generateButton = new JButton("Generate");
@@ -53,7 +54,7 @@ public class ItemLevel extends JPanel {
     				JScrollPane scrollArea = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 					table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 					resultsPanel.removeAll();
-					resultsPanel.add(scrollArea);
+					resultsPanel.add(scrollArea, BorderLayout.CENTER);
 					revalidate();
     			} catch (Exception e) {
     				e.printStackTrace();
@@ -66,6 +67,6 @@ public class ItemLevel extends JPanel {
 		sidebar.add(searchPanel, new GBC(0,0,1,2));
 		sidebar.add(generateButton, new GBC(0,3,1,1).setFill(GBC.HORIZONTAL));
 		add(sidebar, BorderLayout.WEST);
-		add(resultsPanel, BorderLayout.EAST);
+		add(resultsPanel, BorderLayout.CENTER);
 	}
 }

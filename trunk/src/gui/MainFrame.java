@@ -12,7 +12,7 @@ public class MainFrame extends JFrame {
 	
 	public MainFrame() throws Exception {
 		setTitle("RPG Database");
-		setBounds(100, 100, 700, 600);
+		setBounds(100, 100, 900, 600);
 		addWindowListener(new DisconnectAndClose());
 		setResizable(false);
 		
@@ -21,7 +21,9 @@ public class MainFrame extends JFrame {
 		tabPane.addTab("Characters", new CharacterTab());
 		tabPane.addTab("Items", new ItemTab());
 		tabPane.addTab("Spells", new SpellTab());
-		//tabPane.addTab("Operations", new Operations());
+		tabPane.addTab("Backpacks", new Backpack());
+		tabPane.addTab("Spell Trees", new SpellTree());
+		
 	}
 	
 	public static void main(final String args[]) throws Exception {
@@ -38,7 +40,6 @@ public class MainFrame extends JFrame {
 			try {
 				Database.disconnect();
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		    System.exit(0);

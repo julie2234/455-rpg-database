@@ -34,7 +34,7 @@ public class Spells extends JPanel {
 		// create search panel
 		JPanel searchPanel = new JPanel();
 		searchPanel.setLayout(new GridLayout(0,1));
-		searchPanel.setBorder(BorderFactory.createTitledBorder(etched, "Search for:"));
+		searchPanel.setBorder(BorderFactory.createTitledBorder(etched, "Search for"));
 		final JComboBox searchByDropdown = new JComboBox(attributes);
 		searchPanel.add(searchByDropdown);
 		final JTextField textField = new JTextField();
@@ -44,7 +44,7 @@ public class Spells extends JPanel {
 		// create checkboxes
 		JPanel displayPanel = new JPanel();
 		displayPanel.setLayout(new GridLayout(0,1));
-		displayPanel.setBorder(BorderFactory.createTitledBorder(etched, "Display:"));
+		displayPanel.setBorder(BorderFactory.createTitledBorder(etched, "Display"));
 		final JCheckBox[] checkboxes = new JCheckBox[attributes.length];
 		for (int i = 0; i < attributes.length; i++) {
 			checkboxes[i] = new JCheckBox(attributes[i]);
@@ -54,6 +54,7 @@ public class Spells extends JPanel {
 		
 		// create results area
 		final JPanel resultsPanel = new JPanel();
+		resultsPanel.setLayout(new BorderLayout());
 		
 		// create buttons
 		final JButton searchButton = new JButton("Search");
@@ -109,7 +110,7 @@ public class Spells extends JPanel {
 					JScrollPane scrollArea = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 					table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 					resultsPanel.removeAll();
-					resultsPanel.add(scrollArea);
+					resultsPanel.add(scrollArea, BorderLayout.CENTER);
 					revalidate();
 					deleteButton.setEnabled(true);
 				}
@@ -137,7 +138,7 @@ public class Spells extends JPanel {
 					JScrollPane scrollArea = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 					table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 					resultsPanel.removeAll();
-					resultsPanel.add(scrollArea);
+					resultsPanel.add(scrollArea, BorderLayout.CENTER);
 					revalidate();
 					deleteButton.setEnabled(true);
 				}
@@ -153,6 +154,6 @@ public class Spells extends JPanel {
 		sidebar.add(viewAllButton, new GBC(0,8,1,1).setFill(GBC.HORIZONTAL));
 		sidebar.add(deleteButton, new GBC(0,9,1,1).setFill(GBC.HORIZONTAL));
 		add(sidebar, BorderLayout.WEST);
-		add(resultsPanel, BorderLayout.EAST);
+		add(resultsPanel, BorderLayout.CENTER);
 	}
 }
