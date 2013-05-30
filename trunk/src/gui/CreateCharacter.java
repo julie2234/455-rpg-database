@@ -1,5 +1,85 @@
 package gui;
 
+import java.awt.BorderLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.Border;
+
+@SuppressWarnings("serial")
+public class CreateCharacter extends JPanel {
+	
+	public CreateCharacter() throws Exception {
+		super();
+		initialize();
+	}
+
+	private void initialize() throws Exception {
+		setLayout(new BorderLayout());
+		Border etched = BorderFactory.createEtchedBorder();
+
+		// create name panel
+		JPanel namePanel = new JPanel();
+		namePanel.setLayout(new GridLayout(0,1));
+		namePanel.setBorder(BorderFactory.createTitledBorder(etched, "Character name:"));
+		final JTextField nameField = new JTextField();
+		nameField.setColumns(10);
+		namePanel.add(nameField);
+		
+		// create race panel
+		JPanel racePanel = new JPanel();
+		racePanel.setLayout(new GridLayout(0,1));
+		racePanel.setBorder(BorderFactory.createTitledBorder(etched, "Character race:"));
+		String[] dropdown = {"High elf", "Argonian", "Wood elf", "Breton", "Dunmer", "Imperial", "Khajiit", "Nord", "Orc", "Redguard"};
+		final JComboBox raceByDropdown = new JComboBox(dropdown);
+		racePanel.add(raceByDropdown);
+		
+		// create results area
+		final JPanel resultsPanel = new JPanel();
+		
+		// create buttons
+		final JButton createButton = new JButton("Create");
+		createButton.addActionListener(new ActionListener() {
+            public void actionPerformed(final ActionEvent the_event) {
+            	//INSERT INTO `Character` (characterName, characterLevel, race, playerBoolean, backpackID, HP, MP, stamina, experience) 
+            	//VALUES('Ainsley', 3, 'Giant', 'T', 'B1009', 100, 100, 100, 100);
+            	StringBuilder query = new StringBuilder("INSERT INTO `Character` VALUES(");
+            	query.append("'" + nameField.getText() + "', 'T', ");
+            	query.append("'" + (String) raceByDropdown.getSelectedItem() + "', 1, 0, 100, 100, 100");
+				try {
+					JTable table = Database.executeQuery(query.toString());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+            	revalidate();
+            }
+        });
+		
+		// add everything to the panel
+		JPanel sidebar = new JPanel();
+		sidebar.setLayout(new GridBagLayout());
+		sidebar.add(namePanel, new GBC(0,0,1,2));
+		sidebar.add(racePanel, new GBC(0,2,1,5).setFill(GBC.HORIZONTAL));
+		sidebar.add(createButton, new GBC(0,7,1,1).setFill(GBC.HORIZONTAL));
+		add(sidebar, BorderLayout.WEST);
+		add(resultsPanel, BorderLayout.EAST);
+	}
+}
+
+
+/*package gui;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -110,4 +190,4 @@ public class CreateCharacter extends JPanel {
 		
 	}
 	// TODO Add a tuple to Character with characterName of charField and race of raceByDropdown
-}
+}*/
