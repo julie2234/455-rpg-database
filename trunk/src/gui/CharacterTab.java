@@ -19,14 +19,12 @@ public class CharacterTab extends JPanel {
 		Character search = new Character();
 		GenerateMonster generateMonster = new GenerateMonster();
 		CreateCharacter createCharacter = new CreateCharacter();
-		Fight fight = new Fight();
 		
 		JTabbedPane tabPane = new JTabbedPane();
 		add(tabPane, BorderLayout.CENTER);
 		tabPane.addTab("Search", search);
 		tabPane.addTab("Generate Monster", generateMonster);
 		tabPane.addTab("Create Character", createCharacter);
-		tabPane.addTab("Fight", fight);
 		
 	}
 }
