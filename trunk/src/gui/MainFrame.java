@@ -29,6 +29,8 @@ public class MainFrame extends JFrame {
 		tabPane.addTab("Spells", new SpellTab());
 		tabPane.addTab("Backpacks", new Backpack());
 		tabPane.addTab("Spell Trees", new SpellTree());
+		tabPane.addTab("Equipped Items", new EquippedItems());
+		
 		
 	}
 	
