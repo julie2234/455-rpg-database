@@ -19,9 +19,13 @@ public class Database {
 	private static String result;
 	
 	
-	public static void connect() throws ClassNotFoundException, SQLException {
+	public static void connect(String uname, String pass) throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.jdbc.Driver");
-		conn = DriverManager.getConnection("jdbc:mysql://localhost/rpg?user=root&password=");
+		StringBuilder sb = new StringBuilder("jdbc:mysql://localhost/rpg?user=");
+		sb.append(uname);
+		sb.append("&password=");
+		sb.append(pass);
+		conn = DriverManager.getConnection(sb.toString());
 		statement = conn.createStatement();
 	}
 	
