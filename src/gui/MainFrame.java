@@ -12,7 +12,7 @@ public class MainFrame extends JFrame {
 	
 	public MainFrame() throws Exception {
 		setTitle("RPG Database");
-//		setBounds(100, 100, 900, 600);
+		setBounds(100, 100, 700, 600);
 		addWindowListener(new DisconnectAndClose());
 		setResizable(false);
 		
@@ -27,7 +27,7 @@ public class MainFrame extends JFrame {
 	public static void main(final String args[]) throws Exception {
 		MainFrame frame = new MainFrame();
 		frame.setVisible(true);
-		frame.pack();
+		//frame.pack();
 		frame.setLocationRelativeTo(null);
 		Database.connect();
 	}
