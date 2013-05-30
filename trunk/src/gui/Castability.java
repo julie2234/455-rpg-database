@@ -140,8 +140,8 @@ public class Castability extends JPanel {
 				}
 				
 				StringBuilder result = new StringBuilder("No\n\n");
-				result.append(query1.toString() + "\n\n" + prereq);
-				result.append(q2.toString() + "\n\n" + type);
+				result.append(query1.toString() + "\n" + prereq + "\n\n");
+				result.append(q2.toString() + "\n" + type + "\n\n");
 				result.append(q3.toString() + "\n\n");
 				
 				if (canDo.equals("T")) {
