@@ -129,8 +129,8 @@ public class Castability extends JPanel {
 				StringBuilder q3 = new StringBuilder("SELECT ");
 				q3.append(prereq);
 				q3.append(" FROM `SpellTree` WHERE magicType = \"");
-				q3.append(type + "\" AND charID = \"");
-				q3.append(charID + "\";");
+				q3.append(type + "\" AND charID = ");
+				q3.append(charID + ";");
 				
 				String canDo = "";
 				try {
