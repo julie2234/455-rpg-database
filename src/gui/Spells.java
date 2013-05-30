@@ -106,7 +106,8 @@ public class Spells extends JPanel {
 						e.printStackTrace();
 					}
 					
-					JScrollPane scrollArea = new JScrollPane(table);
+					JScrollPane scrollArea = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+					table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 					resultsPanel.removeAll();
 					resultsPanel.add(scrollArea);
 					revalidate();
