@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+@SuppressWarnings("serial")
 public class SpellTree extends JPanel {
 	private String[] attributes = {"characterID", "magicType", "novice", "apprentice", "adept", "expert", "master"};
 

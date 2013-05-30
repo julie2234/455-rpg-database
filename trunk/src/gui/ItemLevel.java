@@ -8,8 +8,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -46,19 +44,30 @@ public class ItemLevel extends JPanel {
 		generateButton.addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent the_event) {
             	String lvl = levelField.getText();
+            	boolean isInt = true;
+				try {
+					Integer.parseInt(lvl);
+				} catch (NumberFormatException e) {
+					isInt = false;
+				}
+				if (!isInt || Integer.parseInt(lvl) <= 0) {
+					JOptionPane.showMessageDialog(ItemLevel.this, "Input must be a positive integer.", "Input Error", JOptionPane.ERROR_MESSAGE);
+				} else {
             	
-            	String query = "SELECT * FROM `Item` where itemLevel = " 
-            					+ lvl + " ORDER BY RAND() LIMIT 1;";
-            	try {
-    				JTable table = Database.executeQuery(query.toString());
-    				JScrollPane scrollArea = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-					table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-					resultsPanel.removeAll();
-					resultsPanel.add(scrollArea, BorderLayout.CENTER);
-					revalidate();
-    			} catch (Exception e) {
-    				e.printStackTrace();
-    			}
+	            	String query = "SELECT * FROM `Item` where itemLevel = " 
+	            					+ lvl + " ORDER BY RAND() LIMIT 1;";
+	            	try {
+	    				JTable table = Database.executeQuery(query.toString());
+	    				JScrollPane scrollArea = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+	    						JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+						table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+						resultsPanel.removeAll();
+						resultsPanel.add(scrollArea, BorderLayout.CENTER);
+						revalidate();
+	    			} catch (Exception e) {
+	    				e.printStackTrace();
+	    			}
+				}
             }});
 		
 		// add everything to the panel
