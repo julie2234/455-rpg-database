@@ -151,5 +151,5 @@ public class Castability extends JPanel {
 			}
 		});
 	}
-	// TODO Check if spellField is a part of charField
+
 }

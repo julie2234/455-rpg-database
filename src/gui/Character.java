@@ -47,8 +47,7 @@ public class Character extends JPanel {
 		final JCheckBox[] checkboxes = new JCheckBox[attributes.length];
 		for (int i = 0; i < attributes.length; i++) {
 			checkboxes[i] = new JCheckBox(attributes[i]);
-			if (i < 4)
-				checkboxes[i].setSelected(true);
+			checkboxes[i].setSelected(true);
 			displayPanel.add(checkboxes[i]);
 		}
 		
@@ -57,6 +56,7 @@ public class Character extends JPanel {
 		
 		// create buttons
 		final JButton searchButton = new JButton("Search");
+		final JButton viewAllButton = new JButton("View All");
 		final JButton deleteButton = new JButton("Delete");
 		deleteButton.setEnabled(false);
 		deleteButton.addActionListener(new ActionListener() {
@@ -115,13 +115,43 @@ public class Character extends JPanel {
 			}
 		});
 		
+		viewAllButton.addActionListener(new ActionListener() {
+			public void actionPerformed(final ActionEvent the_event) {
+				StringBuilder query = new StringBuilder("SELECT ");
+				for (JCheckBox box : checkboxes) {
+					if (box.isSelected())
+						query.append(box.getText() + ", ");
+				}
+				if (query.substring(query.length() - 2, query.length()).equals(
+						", ")) {
+					query.delete(query.length() - 2, query.length());
+					query.append(" FROM `Character`;");
+					JTable table = null;
+					try {
+						table = Database.executeQuery(query.toString());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					
+					JScrollPane scrollArea = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+					table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+					resultsPanel.removeAll();
+					resultsPanel.add(scrollArea);
+					revalidate();
+					deleteButton.setEnabled(true);
+				}
+			}
+		});
+
+		
 		// add everything to the panel
 		JPanel sidebar = new JPanel();
 		sidebar.setLayout(new GridBagLayout());
 		sidebar.add(searchPanel, new GBC(0,0,1,2));
 		sidebar.add(displayPanel, new GBC(0,2,1,5).setFill(GBC.HORIZONTAL));
 		sidebar.add(searchButton, new GBC(0,7,1,1).setFill(GBC.HORIZONTAL));
-		sidebar.add(deleteButton, new GBC(0,8,1,1).setFill(GBC.HORIZONTAL));
+		sidebar.add(viewAllButton, new GBC(0,8,1,1).setFill(GBC.HORIZONTAL));
+		sidebar.add(deleteButton, new GBC(0,9,1,1).setFill(GBC.HORIZONTAL));
 		add(sidebar, BorderLayout.WEST);
 		add(resultsPanel, BorderLayout.EAST);
 	}
