@@ -54,14 +54,67 @@ public class CreateCharacter extends JPanel {
             public void actionPerformed(final ActionEvent the_event) {
             	//INSERT INTO `Character` (characterName, characterLevel, race, playerBoolean, backpackID, HP, MP, stamina, experience) 
             	//VALUES('Ainsley', 3, 'Giant', 'T', 'B1009', 100, 100, 100, 100);
-            	StringBuilder query = new StringBuilder("INSERT INTO `Character` VALUES(");
-            	query.append("'" + nameField.getText() + "', 'T', ");
-            	query.append("'" + (String) raceByDropdown.getSelectedItem() + "', 1, 0, 100, 100, 100");
+            	StringBuilder query = new StringBuilder("INSERT INTO `Character` ");
+            	query.append("(characterName, characterLevel, race, playerBoolean, HP, MP, stamina, experience)");
+            	query.append(" VALUES(");
+            	query.append("'" + nameField.getText() + "', 1, ");
+            	query.append("'" + (String) raceByDropdown.getSelectedItem() + "', 'T', 100, 100, 100, 0");
 				try {
 					JTable table = Database.executeQuery(query.toString());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				
+				StringBuilder q2 = new StringBuilder("SELECT characterID FROM `Character` WHERE characterName = \"");
+				q2.append(nameField.getText() + "\"");
+				
+				String charID = "";
+				try {
+					charID = Database.executeQueryString(query.toString());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				StringBuilder q3 = new StringBuilder("INSERT INTO `Backpack` ");
+				q3.append("(characterID) VALUES(");
+				q3.append(charID + ");");
+				
+				try {
+					JTable table = Database.executeQuery(query.toString());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				StringBuilder q4 = new StringBuilder("INSERT INTO `Spell Tree` ");
+				q4.append("(CharacterID, magicType, novice, apprentice, adept, expert, master) VALUES(");
+				q4.append(charID + "'Destruction', 'F', 'F', 'F', 'F', 'F');");
+				
+				try {
+					JTable table = Database.executeQuery(query.toString());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				StringBuilder q5 = new StringBuilder("INSERT INTO `Spell Tree` ");
+				q4.append("(CharacterID, magicType, novice, apprentice, adept, expert, master) VALUES(");
+				q4.append(charID + "'Restoration', 'F', 'F', 'F', 'F', 'F');");
+				
+				try {
+					JTable table = Database.executeQuery(query.toString());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				StringBuilder q6 = new StringBuilder("INSERT INTO `Spell Tree` ");
+				q4.append("(CharacterID, magicType, novice, apprentice, adept, expert, master) VALUES(");
+				q4.append(charID + "'Alteration', 'F', 'F', 'F', 'F', 'F');");
+				
+				try {
+					JTable table = Database.executeQuery(query.toString());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
             	revalidate();
             }
         });
