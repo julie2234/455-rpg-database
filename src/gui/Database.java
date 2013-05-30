@@ -44,8 +44,8 @@ public class Database {
 	}
 	
 	public static String executeQueryString(String query) throws Exception {
-		rs = statement.executeQuery(query);
-		return rs.toString();
+		rs = statement.executeQuery(query);		
+		return rs.getString(1);
 	}
 	
 	public static int executeUpdate(String query) throws SQLException {
