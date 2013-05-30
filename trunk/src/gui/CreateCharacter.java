@@ -58,19 +58,20 @@ public class CreateCharacter extends JPanel {
             	query.append("(characterName, characterLevel, race, playerBoolean, HP, MP, stamina, experience)");
             	query.append(" VALUES(");
             	query.append("'" + nameField.getText() + "', 1, ");
-            	query.append("'" + (String) raceByDropdown.getSelectedItem() + "', 'T', 100, 100, 100, 0");
+            	query.append("'" + (String) raceByDropdown.getSelectedItem() + "', 'T', 100, 100, 100, 0);");
 				try {
-					JTable table = Database.executeQuery(query.toString());
+					Database.executeUpdate(query.toString());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				
 				StringBuilder q2 = new StringBuilder("SELECT characterID FROM `Character` WHERE characterName = \"");
-				q2.append(nameField.getText() + "\"");
+				q2.append(nameField.getText() + "\";");
+				System.out.println(q2.toString());
 				
 				String charID = "";
 				try {
-					charID = Database.executeQueryString(query.toString());
+					charID = Database.executeQueryString(q2.toString());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -80,7 +81,7 @@ public class CreateCharacter extends JPanel {
 				q3.append(charID + ");");
 				
 				try {
-					JTable table = Database.executeQuery(query.toString());
+					Database.executeUpdate(q3.toString());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -90,7 +91,7 @@ public class CreateCharacter extends JPanel {
 				q4.append(charID + "'Destruction', 'F', 'F', 'F', 'F', 'F');");
 				
 				try {
-					JTable table = Database.executeQuery(query.toString());
+					Database.executeUpdate(q4.toString());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -100,7 +101,7 @@ public class CreateCharacter extends JPanel {
 				q4.append(charID + "'Restoration', 'F', 'F', 'F', 'F', 'F');");
 				
 				try {
-					Database.executeQuery(query.toString());
+					Database.executeUpdate(q5.toString());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -110,7 +111,7 @@ public class CreateCharacter extends JPanel {
 				q4.append(charID + "'Alteration', 'F', 'F', 'F', 'F', 'F');");
 				
 				try {
-					Database.executeQuery(query.toString());
+					Database.executeUpdate(q6.toString());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -118,7 +119,7 @@ public class CreateCharacter extends JPanel {
 				StringBuilder q7 = new StringBuilder("SELECT * FROM `Character`");
 				JTable table = null;
 				try {
-					table = Database.executeQuery(query.toString());
+					table = Database.executeQuery(q7.toString());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
