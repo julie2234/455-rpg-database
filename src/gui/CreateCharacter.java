@@ -96,11 +96,11 @@ public class CreateCharacter extends JPanel {
             	
             	String result = "";
         		
-        		try {
-    					JTable table = Database.executeQuery(query.toString());
-    				} catch (Exception e) {
-    					e.printStackTrace();
-    				}
+				try {
+					JTable table = Database.executeQuery(query.toString());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
         		resultsTextArea.setText(result);
             	revalidate();
             }
