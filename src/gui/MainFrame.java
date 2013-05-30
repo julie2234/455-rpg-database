@@ -28,6 +28,7 @@ public class MainFrame extends JFrame {
 		MainFrame frame = new MainFrame();
 		frame.setVisible(true);
 		frame.pack();
+		frame.setLocationRelativeTo(null);
 		Database.connect();
 	}
 	
