@@ -67,7 +67,6 @@ public class CreateCharacter extends JPanel {
 				
 				StringBuilder q2 = new StringBuilder("SELECT characterID FROM `Character` WHERE characterName = \"");
 				q2.append(nameField.getText() + "\";");
-				System.out.println(q2.toString());
 				
 				String charID = "";
 				try {
@@ -88,7 +87,7 @@ public class CreateCharacter extends JPanel {
 				
 				StringBuilder q4 = new StringBuilder("INSERT INTO `Spell Tree` ");
 				q4.append("(CharacterID, magicType, novice, apprentice, adept, expert, master) VALUES(");
-				q4.append(charID + "'Destruction', 'F', 'F', 'F', 'F', 'F');");
+				q4.append(charID + ", 'Destruction', 'F', 'F', 'F', 'F', 'F');");
 				
 				try {
 					Database.executeUpdate(q4.toString());
@@ -97,8 +96,8 @@ public class CreateCharacter extends JPanel {
 				}
 				
 				StringBuilder q5 = new StringBuilder("INSERT INTO `Spell Tree` ");
-				q4.append("(CharacterID, magicType, novice, apprentice, adept, expert, master) VALUES(");
-				q4.append(charID + "'Restoration', 'F', 'F', 'F', 'F', 'F');");
+				q5.append("(CharacterID, magicType, novice, apprentice, adept, expert, master) VALUES(");
+				q5.append(charID + ", 'Restoration', 'F', 'F', 'F', 'F', 'F');");
 				
 				try {
 					Database.executeUpdate(q5.toString());
@@ -107,8 +106,8 @@ public class CreateCharacter extends JPanel {
 				}
 				
 				StringBuilder q6 = new StringBuilder("INSERT INTO `Spell Tree` ");
-				q4.append("(CharacterID, magicType, novice, apprentice, adept, expert, master) VALUES(");
-				q4.append(charID + "'Alteration', 'F', 'F', 'F', 'F', 'F');");
+				q6.append("(CharacterID, magicType, novice, apprentice, adept, expert, master) VALUES(");
+				q6.append(charID + ", 'Alteration', 'F', 'F', 'F', 'F', 'F');");
 				
 				try {
 					Database.executeUpdate(q6.toString());
