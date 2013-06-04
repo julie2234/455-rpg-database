@@ -96,7 +96,7 @@ public class Spells extends JPanel {
 					isInt = false;
 				}
 				if ((searchBy.equals("magikaCost") || searchBy.equals("spellPotency") || searchBy.equals("duration"))
-						&& !isInt || Integer.parseInt(condition) <= 0) {
+						&& (!isInt || Integer.parseInt(condition) <= 0)) {
 					JOptionPane.showMessageDialog(Spells.this, "Input must be a positive integer.",
 							"Input Error", JOptionPane.ERROR_MESSAGE);
 				} else {

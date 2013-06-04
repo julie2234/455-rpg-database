@@ -98,7 +98,7 @@ public class Items extends JPanel {
 				}
 				if ((searchBy.equals("itemID") || searchBy.equals("itemLevel") || searchBy.equals("cost")
 						|| searchBy.equals("weight") || searchBy.equals("damage") || searchBy.equals("duration")
-						|| searchBy.equals("potency")) && !isInt || Integer.parseInt(condition) <= 0) {
+						|| searchBy.equals("potency")) && (!isInt || Integer.parseInt(condition) <= 0)) {
 					JOptionPane.showMessageDialog(Items.this, "Input must be a positive integer.",
 							"Input Error", JOptionPane.ERROR_MESSAGE);
 				} else {

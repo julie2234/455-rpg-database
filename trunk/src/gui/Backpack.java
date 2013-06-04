@@ -72,7 +72,7 @@ public class Backpack extends JPanel {
 					isInt = false;
 				}
 				if ((searchBy.equals("characterID") || searchBy.equals("itemID") || searchBy.equals("count"))
-						&& !isInt || Integer.parseInt(condition) <= 0) {
+						&& (!isInt || Integer.parseInt(condition) <= 0)) {
 					JOptionPane.showMessageDialog(Backpack.this, "Input must be a positive integer.",
 							"Input Error", JOptionPane.ERROR_MESSAGE);
 				} else {
