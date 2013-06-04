@@ -98,7 +98,7 @@ public class Character extends JPanel {
 				}
 				if ((searchBy.equals("characterID") || searchBy.equals("characterLevel")
 						|| searchBy.equals("HP") || searchBy.equals("MP") || searchBy.equals("stamina")
-						|| searchBy.equals("experience")) && !isInt || Integer.parseInt(condition) <= 0) {
+						|| searchBy.equals("experience")) && (!isInt || Integer.parseInt(condition) <= 0)) {
 					JOptionPane.showMessageDialog(Character.this, "Input must be a positive integer.", "Input Error", JOptionPane.ERROR_MESSAGE);
 				} else {
 				
